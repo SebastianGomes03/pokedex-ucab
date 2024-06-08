@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pokemon</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <section class="lateral">
+        <li >
+            <div>
+                <img src="./img/Logo.png" class="logo">
+            </div>
+            <div class="container">
+                <img src="./img/pokedexicon.png">
+                <a href="">Pokedex</a>
+            </div>
+            <div class="container">
+                <img src="./img/objetosicon.png">
+                <a href="">Objetos</a>
+            </div>
+            <div class="container">
+                <img src="./img/abouticon.png">
+                <a href="">Conocenos</a>
+            </div>
+            <div class="container">
+                <img src="./img/contacticon.png">
+                <a href="">Contacto</a>
+            </div>
+        </li>
+    </section>
+
+    <main>
+        <section class="pokedex">
+            <div class="shiny-button">
+                <img src="./img/shiny-stars.png" alt="shiny">
+            </div>
+            
+            <form class="gen-select">
+                <input type="radio" name="gen" id="gen-1" value="1" checked onclick="getPokeData(1,151)">
+                <input type="radio" name="gen" id="gen-2" value="2" onclick="getPokeData(152, 251)">
+                <input type="radio" name="gen" id="gen-3" value="3" onclick="getPokeData(252, 386)">
+                <input type="radio" name="gen" id="gen-4" value="4" onclick="getPokeData(387,493)">
+                <input type="radio" name="gen" id="gen-5" value="5" onclick="getPokeData(494, 649)">
+                <input type="radio" name="gen" id="gen-6" value="6" onclick="getPokeData(650, 721)">
+                <input type="radio" name="gen" id="gen-7" value="7" onclick="getPokeData(722, 809)">
+                <input type="radio" name="gen" id="gen-8" value="8" onclick="getPokeData(810, 905)">
+                <input type="radio" name="gen" id="gen-9" value="9" onclick="getPokeData(906, 1025)">
+                <input type="radio" name="gen" id="alt-forms" value="0" onclick="getPokeData(10001, 10277)">
+            </form>
+            
+        </section>
+    </main>
+</body>
+</html>
