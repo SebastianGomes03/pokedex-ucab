@@ -18,14 +18,16 @@ html::-webkit-scrollbar {
     display: none;
 }
 
-
 :root{
     --rosa: #FF808B;
     --rosaOscuro: #FE6673;
     --attachment: fixed;
-    --degrees: 115deg;
     --colorStop-1: 60%;
     --colorStop-2: calc(var(--colorStop-1) + 80px);
+    --attachment: fixed;
+    --degrees: 100deg;
+    --colorStop-1: 50%;
+    --colorStop-2: calc(var(--colorStop-1) + 100px);
 }
 
 body{
@@ -59,6 +61,17 @@ li{
 a{
     text-decoration: none;
     color: #FFFFFF;
+}
+
+.pokemon-model {
+    width: 50%;
+}
+
+.pokedex {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .logo{
@@ -233,6 +246,205 @@ a{
     filter: drop-shadow(5px 5px 0 rgba(130, 217, 211, 0.408));
     cursor: pointer;
     z-index: 10;
+}
+
+div:has(.pokemon-3Dmodel) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline: auto;
+}
+
+.pokemon-3Dmodel {
+    filter: drop-shadow(10px 10px 2px #39393951);
+}
+
+.pokemon-list {
+    min-width: 400px;
+    width: 100%;
+    max-width: 520px;
+    height: calc(100vh - 56px);
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 10px 20px 0;
+    margin-right: 20px;
+}
+
+.pokemon-list::-webkit-scrollbar {
+    display: none;
+}
+
+.pokemon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: capitalize;
+    text-align: center;
+    padding: 0 10px 0 0;
+    color: black;
+    font-weight: 500;
+    font-size: 1.3rem;
+    border-radius: 100vw;
+    cursor: pointer;
+}
+
+.pokemon:hover,
+.pokemon-active {
+    background-image: linear-gradient(115deg, #f04f17 45%, black 45%);
+    color: white;
+}
+
+.pokemon-active {
+    position: relative;
+}
+
+.pokemon-active .pokemon__sprite {
+    animation: pokemon_jump 0.24s ease-in-out 2;
+}
+
+@keyframes pokemon_jump {
+
+    from,
+    to {
+        translate: 0;
+    }
+
+    50% {
+        translate: 0 -10px;
+    }
+}
+
+.pokemon__name {
+    padding: 0 0.5rem;
+}
+
+@keyframes rotate {
+    to {
+        rotate: 360deg;
+    }
+}
+
+.pokemon>div:first-of-type {
+    display: flex;
+    align-items: center;
+}
+
+.pokemon__sprite {
+    width: 60px;
+    scale: 1.2;
+    transform-origin: bottom;
+    margin-inline: 10px;
+}
+
+.pokemon__num {
+    display: flex;
+}
+
+.pokemon__num--field {
+    margin-left: 0.5rem;
+}
+
+.pokeball {
+    --width: 25px;
+    width: var(--width);
+    height: var(--width);
+    aspect-ratio: 1;
+    display: flex;
+    animation-play-state: paused;
+}
+
+.pokemon-active .pokeball {
+    animation: rotate 1600ms infinite linear;
+    animation-play-state: running;
+}
+
+@media screen and (max-width: 992px) {
+    .pokedex {
+        flex-direction: column;
+        height: calc(100vh - 46px);
+    }
+
+    .gen-select {
+        top: 20px;
+        right: 20px;
+        gap: 10px 25px;
+        bottom: initial;
+        left: initial;
+        flex-direction: column;
+    }
+
+    .gen-select input {
+        transform-origin: top center;
+        transition: margin-bottom 0.2s ease-in-out, scale 0.2s ease-in-out;
+    }
+
+    .gen-select input:hover {
+        z-index: 20;
+    }
+
+    .gen-select input:hover,
+    .gen-select input:checked {
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+
+    .shiny-button {
+        width: 4rem;
+    }
+
+    div:has(.pokemon-3Dmodel) {
+        max-width: 475px;
+        padding: 0 20px;
+    }
+
+    .pokemon-list {
+        height: calc(100vh - 451px);
+        margin-inline: auto;
+        padding-right: 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .gen-select {
+        flex-wrap: wrap-reverse;
+        height: 255px;
+    }
+
+    .gen-select {
+        opacity: 0.5;
+        transition: all 0.3s;
+    }
+
+    .gen-select:hover {
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    div:has(.pokemon-3Dmodel) {
+        max-width: 300px;
+    }
+
+    .pokemon-3Dmodel {
+        margin-top: 70px;
+    }
+
+    .pokedex {
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .pokemon-list {
+        width: 100%;
+        min-width: initial;
+    }
+
+    .pokeball {
+        display: none;
+    }
 }
 
 
