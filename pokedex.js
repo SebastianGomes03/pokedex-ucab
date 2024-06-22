@@ -1,9 +1,24 @@
 const url = "https://pokeapi.co/api/v2/pokemon/";
 
-const spriteGrandElement = document.querySelector(".pokemon-3Dmodel > img");
+const generationStartIds = {
+    1: 151,
+	2: 251,  
+	3: 386,
+	4: 493,
+	5: 649,
+	6: 721,
+	7: 809,
+	8: 898,
+	9: 1025,
+};
 
+const generationSelect = document.getElementsByClassName("gen-select")[0]; 
+
+const spriteGrandElement = document.querySelector(".pokemon-3Dmodel > img");
 const pokemonList = document.querySelector(".pokemon-list");
 const shinyButton = document.querySelector(".shiny-button");
+
+let isShiny = false;
 
 customElements.define('yus-html',
   class extends HTMLElement {
@@ -22,14 +37,20 @@ customElements.define('yus-html',
       }
 });
 
-let isShiny = false;
+document.addEventListener('DOMContentLoaded', function() {
+    const firstGenStartId = generationStartIds[1];
+    fetchPokemonDetails(firstGenStartId);
+});
+
+shinyButton.addEventListener("click", () => {
+	toggleShiny();
+});
+
 window.addEventListener("load", getPokeData(1, 151));
 
 function getPokeData(firstPoke, lastPoke) {
-	//must wait a bit before fetching the data for the gen selector animation to work properly
 	setTimeout(() => {
-		const pokemonData = []; // array to store each Pokemon's data
-		const nb_pokemon = lastPoke - firstPoke + 1;
+		const pokemonData = [];
 
 		const promises = [];
 
@@ -42,20 +63,24 @@ function getPokeData(firstPoke, lastPoke) {
 				});
 			promises.push(promise);
 		}
-		// after all the promises are resolved, we can generate the cards
 		Promise.all(promises).then(() => {
 			pokemonList.innerHTML = "";
-			// if we have fetched all the Pokemon data, generate the cards in the correct order
 			pokemonData.forEach((data) => {
 				generateCard(data, lastPoke, isShiny);
 			});
 			betterPokemonCards();
 			selectPokemon();
+
+			if (pokemonData.length > 0) {
+                const firstPokemonData = pokemonData[0];
+                document.querySelector(".pokemon").classList.add("pokemon-active");
+                fetchPokemonDetails(firstPokemonData.id); 
+            }
 		});
 	}, 200);
 }
 
-function generateCard(data, lastPoke, isShiny) {
+function generateCard(data, lastPoke) {
 	const dex_number = data.id;
 	const name = data.name;
 	const spriteGrand = data.sprites.other["official-artwork"].front_default;
@@ -63,35 +88,24 @@ function generateCard(data, lastPoke, isShiny) {
 	const spriteIcon =
 		data.sprites.versions["generation-viii"].icons.front_default;
 
-	pokemonList.innerHTML += ` <li class="pokemon${
-		dex_number == lastPoke ? " pokemon-active" : ""
-	}" 
-	data-sprite-grand="${spriteGrand}" 
-	data-shiny="${spriteGrandShiny}" 
-	data-id="${dex_number}">
-  <div>
-  <div class="pokemon__sprite">
-  <img src="${spriteIcon}" alt="sprite">
-  </div>
-  <p class="pokemon__num">No. <span class="pokemon__num--field">${dex_number}</span></p>
-  </div>
-  <p class="pokemon__name">${name}</p>
-  <div class="pokeball">
-  <img src="img/pokeball.png" alt="pokeball">
-  </div>
-  </li>
+	pokemonList.innerHTML += ` 
+	<li class="pokemon${dex_number == lastPoke ? " pokemon-active" : ""}" data-sprite-grand="${spriteGrand}" data-shiny="${spriteGrandShiny}" data-id="${dex_number}">
+  		<div>
+  			<div class="pokemon__sprite">
+  				<img src="${spriteIcon}" alt="sprite">
+  			</div>
+  			<p class="pokemon__num">No. <span class="pokemon__num--field">${dex_number}</span></p>
+  		</div>
+  		<p class="pokemon__name">${name}</p>
+  		<div class="pokeball">
+  			<img src="img/pokeball.png" alt="pokeball">
+  		</div>
+  	</li>
   `;
-	if (isShiny) {
-		spriteGrandElement.src = spriteGrandShiny;
-	} else {
-		spriteGrandElement.src = spriteGrand;
-	}
-	spriteGrandElement.setAttribute("data-id", dex_number);
 }
 
 function betterPokemonCards() {
 	let pokemons = document.querySelectorAll(".pokemon");
-	//adds one or two 0 to the dex number if it is less than 10 or 100
 	pokemons.forEach((pokemon) => {
 		let dex_entry = pokemon.firstElementChild.lastElementChild.lastElementChild;
 		if (dex_entry.innerText.length == 1) {
@@ -101,23 +115,77 @@ function betterPokemonCards() {
 		}
 	});
 }
+
 function selectPokemon() {
 	let pokemons = document.querySelectorAll(".pokemon");
 	pokemons.forEach((pokemon) => {
-		//adds an event listener to each pokemon so that when you click on it, it adds the class pokemon-active and changes the sprite
 		pokemon.addEventListener("click", () => {
-			spriteGrandElement.setAttribute(
-				"data-id",
-				pokemon.getAttribute("data-id")
-			);
 			determinePokemonSprite(pokemon, isShiny);
 			pokemons.forEach((pokemon) => {
 				pokemon.classList.remove("pokemon-active");
 			});
+			const pokemonId = pokemon.getAttribute("data-id");
+            fetchPokemonDetails(pokemonId);
 			pokemon.classList.add("pokemon-active");
 		});
 	});
 }
+
+function fetchPokemonDetails(pokemonId) {
+    fetch(`${url}${pokemonId}`)
+        .then(response => response.json())
+        .then(data => {
+            const speciesUrl = data.species.url; 
+            fetch(speciesUrl) 
+                .then(response => response.json())
+                .then(speciesData => {
+                    const evolutionChainUrl = speciesData.evolution_chain.url; 
+                    fetch(evolutionChainUrl)
+                        .then(response => response.json())
+                        .then(evolutionData => {
+							updateInfoBox(data, evolutionData);
+							updateSpriteGrandElement(data);
+                        });
+                });
+        })
+        .catch(error => console.error("Error fetching data: ", error));
+}
+
+function updateSpriteGrandElement(pokemonData) {
+    const spriteGrand = pokemonData.sprites.other["official-artwork"].front_default;
+    const spriteGrandShiny = pokemonData.sprites.other["official-artwork"].front_shiny;
+    if (isShiny) {
+        spriteGrandElement.src = spriteGrandShiny;
+    } else {
+        spriteGrandElement.src = spriteGrand;
+    }
+    spriteGrandElement.setAttribute("data-id", pokemonData.id);
+}
+
+function updateInfoBox(pokemonData, evolutionData) {
+    const infoBox = document.querySelector(".pokemon-info-box");
+    let evolutionChain = [];
+    let currentEvolution = evolutionData.chain;
+    do {
+        evolutionChain.push(currentEvolution.species.name);
+        currentEvolution = currentEvolution.evolves_to[0];
+    } while (currentEvolution && currentEvolution.hasOwnProperty('species'));
+
+	infoBox.innerHTML = `
+		<div class="column">
+        	<p>Type: ${pokemonData.types.map(type => type.type.name).join(', ')}</p>
+        	<p>Height: ${pokemonData.height}</p>
+			</div>
+		<div class="column">
+        	<p>Weight: ${pokemonData.weight}</p>
+        	<p>Abilities: ${pokemonData.abilities.map(ability => ability.ability.name).join(', ')}</p>
+		</div>
+		<div class="full-width">
+        	<p>Evolution Chain: ${evolutionChain.join(' -> ')}</p>
+		</div>
+    `;
+}
+
 function determinePokemonSprite(pokemon, isShiny) {
 	if (isShiny) {
 		spriteGrandElement.src = pokemon.getAttribute("data-shiny");
@@ -126,10 +194,6 @@ function determinePokemonSprite(pokemon, isShiny) {
 	}
 	console.log(isShiny);
 }
-
-shinyButton.addEventListener("click", () => {
-	toggleShiny();
-});
 
 function toggleShiny() {
 	let pokemonSpriteLink =
@@ -151,4 +215,12 @@ function toggleShiny() {
 			pokemonSpriteLink + spriteGrandElement.getAttribute("data-id") + ".png";
 	}
 }
+
+function toggleNavbar() {
+    var navbar = document.getElementById("navbar");
+    navbar.classList.toggle("active");
+	var sidebar = document.querySelector('.lateral');
+	sidebar.classList.toggle('active');
+}
+
 

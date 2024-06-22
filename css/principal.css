@@ -32,22 +32,18 @@ html::-webkit-scrollbar {
 
 body{
     max-width: 1920px;
-        font-family: "Noto Sans KR", sans-serif;
-        background-color: #fff;
-        color: #282828;
-        background-image: linear-gradient(var(--degrees),
-                transparent var(--colorStop-1),
-                var(--rosaOscuro) var(--colorStop-1) var(--colorStop-2),
-                var(--rosa) var(--colorStop-2)),
-            radial-gradient(circle at 20% 70%,
+    font-family: "Noto Sans KR", sans-serif;
+    background-color: #fff;
+    color: #282828;
+    background-image: linear-gradient(var(--degrees), transparent var(--colorStop-1), var(--rosaOscuro) var(--colorStop-1) var(--colorStop-2), var(--rosa) var(--colorStop-2)), radial-gradient(circle at 20% 70%,
                 rgb(239 208 234 / 0.9),
                 rgb(234 201 242 / 0.6),
                 rgb(231 238 197 / 0.6),
                 rgb(205 240 219 / 0.6),
                 rgb(231 237 245 / 0.6));
-        background-attachment: var(--attachment);
-        min-height: 100vh;
-        overflow: hidden;
+    background-attachment: var(--attachment);
+    min-height: 100vh;
+    overflow: hidden;
 }
 
 img {
@@ -104,7 +100,7 @@ a{
 
 .gen-select {
     position: absolute;
-    bottom: 20px;
+    bottom: 0;
     left: 150px;
     display: flex;
     gap: 12px;
@@ -249,10 +245,9 @@ a{
 }
 
 div:has(.pokemon-3Dmodel) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-inline: auto;
+    position: absolute;
+    left: 300px;
+    top: 10px;
 }
 
 .pokemon-3Dmodel {
@@ -404,6 +399,63 @@ div:has(.pokemon-3Dmodel) {
         margin-inline: auto;
         padding-right: 0;
     }
+}
+
+.hamburger-icon {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#navbar {
+    display: none;
+}
+
+#navbar.active {
+    display: block;
+}
+
+.lateral {
+    height: 100vh;
+    background-color: transparent;
+    position: fixed;
+    z-index: 1000;
+}
+
+.lateral.active {
+    background-color: var(--rosa);
+    transition: 0.5s;
+}
+
+.pokemon-info-container {
+    position: absolute;
+    left: 140px;
+    width: 35%;
+}
+
+.pokemon-info-box{
+    font-size: 25px;
+    padding: 10px;
+    margin-top: 10rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column {
+    flex: 1;
+    min-width: 20%;
+    max-width: 50%;
+    padding: 0
+}
+
+.full-width {
+    width: 100%;
+    margin-top: 20px; 
+}
+
+.pokemon-info-box p{
+    margin-bottom: 10px;
+    color: var(--rosaOscuro);
+    font-weight: bolder;
 }
 
 @media screen and (max-width: 600px) {
