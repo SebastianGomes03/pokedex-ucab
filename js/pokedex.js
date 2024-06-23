@@ -13,16 +13,20 @@ const generationStartIds = {
 };
 
 const generationSelect = document.getElementsByClassName("gen_select")[0]; 
-
 const spriteGrandElement = document.querySelector(".pokemon_3Dmodel > img");
 const pokemonList = document.querySelector(".pokemon_list");
 const shinyButton = document.querySelector(".shiny_button");
-
 let isShiny = false;
+let db;
+const request = indexedDB.open("PokedexDB", 1);
 
 document.addEventListener('DOMContentLoaded', function() {
-    const firstGenStartId = generationStartIds[1];
-    fetchPokemonDetails(firstGenStartId);
+    generationSelect.addEventListener('change', function() {
+        const gen = this.value; 
+        const firstPoke = generationStartIds[gen]; 
+        const lastPoke = gen < Object.keys(generationStartIds).length ? generationStartIds[gen + 1] - 1 : generationStartIds[gen]; 
+        getPokeData(firstPoke, lastPoke); 
+    });
 });
 
 shinyButton.addEventListener("click", () => {
@@ -31,36 +35,50 @@ shinyButton.addEventListener("click", () => {
 
 window.addEventListener("load", getPokeData(1, 151));
 
+request.onupgradeneeded = function(event) {
+    db = event.target.result;
+    if (!db.objectStoreNames.contains("pokemons")) {
+        db.createObjectStore("pokemons", { keyPath: "id" });
+    }
+};
+
+request.onerror = function(event) {
+    console.error("Database error: ", event.target.error);
+};
+
+request.onsuccess = function(event) {
+    db = event.target.result;
+};
+
 function getPokeData(firstPoke, lastPoke) {
-	setTimeout(() => {
-		const pokemonData = [];
-
-		const promises = [];
-
-		for (let i = firstPoke; i <= lastPoke; i++) {
-			const finalUrl = url + i;
-			const promise = fetch(finalUrl)
-				.then((response) => response.json())
-				.then((data) => {
-					pokemonData[i - firstPoke] = data;
-				});
-			promises.push(promise);
-		}
-		Promise.all(promises).then(() => {
-			pokemonList.innerHTML = "";
-			pokemonData.forEach((data) => {
-				generateCard(data, lastPoke, isShiny);
-			});
-			betterPokemonCards();
-			selectPokemon();
-
-			if (pokemonData.length > 0) {
-                const firstPokemonData = pokemonData[0];
-                document.querySelector(".pokemon").classList.add("pokemon_active");
-                fetchPokemonDetails(firstPokemonData.id); 
+    setTimeout(() => {
+        const pokemonData = [];
+        const promises = [];
+        for (let i = firstPoke; i <= lastPoke; i++) {
+            const finalUrl = url + i;
+            const promise = fetch(finalUrl).then((response) => response.json()).then((data) => {
+                pokemonData[i - firstPoke] = data;
+            });
+            promises.push(promise);
+        }
+        Promise.all(promises).then(() => {
+            pokemonList.innerHTML = "";
+            pokemonData.forEach((data) => {
+                generateCard(data, lastPoke, isShiny);
+            });
+            betterPokemonCards();
+            selectPokemon();
+            if (pokemonData.length > 0) {
+                const firstPokemonElement = document.querySelector(".pokemon");
+                if (firstPokemonElement) {
+                    firstPokemonElement.classList.add("pokemon_active");
+                    const pokemonId = firstPokemonElement.getAttribute("data-id");
+                    fetchPokemonDetails(pokemonId);
+                    determinePokemonSprite(firstPokemonElement, isShiny);
+                }
             }
-		});
-	}, 200);
+        });
+    }, 200);
 }
 
 function generateCard(data, lastPoke) {
@@ -115,23 +133,69 @@ function selectPokemon() {
 }
 
 function fetchPokemonDetails(pokemonId) {
-    fetch(`${url}${pokemonId}`)
-        .then(response => response.json())
-        .then(data => {
-            const speciesUrl = data.species.url; 
-            fetch(speciesUrl) 
+    const transaction = db.transaction(["pokemons"]);
+    const store = transaction.objectStore("pokemons");
+    const request = store.get(pokemonId);
+
+    request.onerror = function(event) {
+        console.error("Error al obtener el Pokémon: ", event.target.error);
+    };
+
+    request.onsuccess = function(event) {
+        if (request.result) {
+            console.log("Pokémon encontrado en IndexedDB: ", request.result);
+            // Usar los datos de IndexedDB para actualizar la UI
+            updateInfoBox(request.result, request.result.evolutionData); // Asumiendo que evolutionData también se guarda
+            updateSpriteGrandElement(request.result);
+        } else {
+            // Si el Pokémon no está en IndexedDB, hacer una solicitud de red
+            fetch(`${url}${pokemonId}`)
                 .then(response => response.json())
-                .then(speciesData => {
-                    const evolutionChainUrl = speciesData.evolution_chain.url; 
-                    fetch(evolutionChainUrl)
+                .then(data => {
+                    // Cambio 1: Guardar los datos obtenidos en IndexedDB
+                    savePokemonData(data);
+                    // Continuar con el procesamiento de los datos como antes
+                    const speciesUrl = data.species.url; 
+                    fetch(speciesUrl) 
                         .then(response => response.json())
-                        .then(evolutionData => {
-							updateInfoBox(data, evolutionData);
-							updateSpriteGrandElement(data);
+                        .then(speciesData => {
+                            const evolutionChainUrl = speciesData.evolution_chain.url; 
+                            fetch(evolutionChainUrl)
+                                .then(response => response.json())
+                                .then(evolutionData => {
+                                    // Asumiendo que queremos guardar evolutionData, necesitamos modificar savePokemonData para incluirlo
+                                    updateInfoBox(data, evolutionData);
+                                    updateSpriteGrandElement(data);
+                                });
                         });
-                });
-        })
-        .catch(error => console.error("Error fetching data: ", error));
+                })
+                .catch(error => console.error("Error fetching data: ", error));
+        }
+    };
+}
+
+function savePokemonData(pokemonData) {
+    const transaction = db.transaction(["pokemons"], "readwrite");
+    const store = transaction.objectStore("pokemons");
+    store.add(pokemonData);
+}
+
+function getPokemonData(pokemonId) {
+    const transaction = db.transaction(["pokemons"]);
+    const store = transaction.objectStore("pokemons");
+    const request = store.get(pokemonId);
+
+    request.onerror = function(event) {
+        console.error("Error al obtener el Pokémon: ", event.target.error);
+    };
+
+    request.onsuccess = function(event) {
+        if (request.result) {
+            console.log("Pokémon encontrado en IndexedDB: ", request.result);
+        } else {
+            console.log("Pokémon no encontrado en IndexedDB.");
+        }
+    };
 }
 
 function updateSpriteGrandElement(pokemonData) {
