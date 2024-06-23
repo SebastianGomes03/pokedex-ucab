@@ -2,6 +2,8 @@
 
 /* Path: styles.css */
 
+/* GENERAL*/
+
 *,
 *::before,
 *::after {
@@ -32,97 +34,102 @@ html::-webkit-scrollbar {
 
 body{
     max-width: 1920px;
-        font-family: "Noto Sans KR", sans-serif;
-        background-color: #fff;
-        color: #282828;
-        background-image: linear-gradient(var(--degrees),
-                transparent var(--colorStop-1),
-                var(--rosaOscuro) var(--colorStop-1) var(--colorStop-2),
-                var(--rosa) var(--colorStop-2)),
-            radial-gradient(circle at 20% 70%,
+    font-family: "Noto Sans KR", sans-serif;
+    background-color: #fff;
+    color: #282828;
+    background-image: linear-gradient(var(--degrees), transparent var(--colorStop-1), var(--rosaOscuro) var(--colorStop-1) var(--colorStop-2), var(--rosa) var(--colorStop-2)), radial-gradient(circle at 20% 70%,
                 rgb(239 208 234 / 0.9),
                 rgb(234 201 242 / 0.6),
                 rgb(231 238 197 / 0.6),
                 rgb(205 240 219 / 0.6),
                 rgb(231 237 245 / 0.6));
-        background-attachment: var(--attachment);
-        min-height: 100vh;
-        overflow: hidden;
+    background-attachment: var(--attachment);
+    min-height: 100vh;
+    overflow: hidden;
 }
 
 img {
     width: 100%;
 }
 
-li{
-    list-style: none;
-}
-
-a{
+a {
     text-decoration: none;
     color: #FFFFFF;
 }
 
-.pokemon-model {
-    width: 50%;
-}
+/*FIN GENERAL*/
 
-.pokedex {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
+/*NAVBAR*/
 
-.logo{
+.logo {
     width: 100%;
     display: flex;
     justify-content: center;
     padding: 20px;
 }
 
-.container{
+.container {
     display: grid;
     justify-content: center;
     align-items: center;
-    padding: 15px;;
+    padding: 15px;
     transition: .3s;
 }
 
-.container:hover{
+.container:hover {
     background: var(--rosaOscuro);
     cursor: pointer;
 }
 
+.hamburger_icon {
+    font-size: 30px;
+    cursor: pointer;
+}
 
-.lateral{
+#navbar {
+    display: none;
+}
+
+#navbar.active {
+    display: block;
+}
+
+.lateral {
     height: 100vh;
-    background-color: var(--rosa);
+    background-color: transparent;
     position: fixed;
     z-index: 1000;
 }
 
-.gen-select {
+.lateral.active {
+    background-color: var(--rosa);
+    transition: 0.5s;
+}
+
+/*FIN NAVBAR*/
+
+
+/*SELECT GENERATION*/
+
+.gen_select {
     position: absolute;
-    bottom: 20px;
+    bottom: 0;
     left: 150px;
     display: flex;
     gap: 12px;
 }
 
-.gen-select input {
+.gen_select input {
     position: relative;
-    --width: 35px;
-    width: var(--width);
-    height: var(--width);
+    width: 35px;
     aspect-ratio: 1;
     cursor: pointer;
     transition: margin-right 0.2s ease-in-out, scale 0.2s ease-in-out;
     transform-origin: center left;
 }
 
-.gen-select input::before,
-.gen-select input::after {
+.gen_select input::before,
+.gen_select input::after {
     position: absolute;
     content: "";
     inset: 0;
@@ -137,13 +144,13 @@ a{
             var(--color-version-2) 50%);
 }
 
-.gen-select input:hover,
-.gen-select input:checked {
+.gen_select input:hover,
+.gen_select input:checked {
     scale: 1.5;
     margin-right: 20px;
 }
 
-.gen-select input:checked::after {
+.gen_select input:checked::after {
     border: 5px solid transparent;
     border-top: 2px solid #000000aa;
     border-bottom: 2px solid #000000aa;
@@ -158,7 +165,7 @@ a{
 }
 
 /* Gen 1 */
-#gen-1::before {
+#gen1::before {
     --color-version-1: #e23a19;
     --color-version-2: #e5c31a;
     --color-version-3: #3971da;
@@ -166,7 +173,7 @@ a{
 }
 
 /* Gen 2 */
-#gen-2::before {
+#gen2::before {
     --color-version-1: #f6c422;
     --color-version-2: #6f55e3;
     --color-version-3: #abb4c9;
@@ -174,7 +181,7 @@ a{
 }
 
 /* Gen 3 */
-#gen-3::before {
+#gen3::before {
     --color-version-1: #e54830;
     --color-version-2: #37dd2b;
     --color-version-3: #0070b7;
@@ -182,7 +189,7 @@ a{
 }
 
 /* Gen 4 */
-#gen-4::before {
+#gen4::before {
     --color-version-1: #97d7e3;
     --color-version-2: #303336;
     --color-version-3: #bd56b7;
@@ -190,46 +197,46 @@ a{
 }
 
 /* Gen 5 */
-#gen-5::before {
+#gen5::before {
     --color-version-1: #f0f6f4;
     --color-version-2: #272524;
     background-image: var(--gradient-2-versions);
 }
 
 /* Gen 6 */
-#gen-6::before {
+#gen6::before {
     --color-version-1: #f1a9c6;
     --color-version-2: #221717;
     background-image: var(--gradient-2-versions);
 }
 
 /* Gen 7 */
-#gen-7::before {
+#gen7::before {
     --color-version-1: #ff9f31;
     --color-version-2: #4f3f9e;
     background-image: var(--gradient-2-versions);
 }
 
 /* Gen 8 */
-#gen-8::before {
+#gen8::before {
     --color-version-1: #02acee;
     --color-version-2: #ed0e65;
     background-image: var(--gradient-2-versions);
 }
 
 /* Gen 9 */
-#gen-9::before {
+#gen9::before {
     --color-version-1: #eb3b4f;
     --color-version-2: #781984;
     background-image: var(--gradient-2-versions);
 }
 
 /* Formes Alt */
-#alt-forms {
+#alt_forms {
     visibility: hidden;
 }
 
-#alt-forms::before {
+#alt_forms::before {
     background-image: radial-gradient(white 21%, black 21% 25%, transparent 25%),
         linear-gradient(red 41%,
             black 41% 44%,
@@ -238,28 +245,42 @@ a{
             white 59%);
 }
 
-.shiny-button {
+/*FIN SELECT GENERATION*/
+
+/*POKEMON 3DMODEL*/
+
+.pokemon_model {
+    width: 50%;
+}
+
+.shiny_button {
     position: absolute;
     left: 150px;
     top: 20px;
     width: 5rem;
     filter: drop-shadow(5px 5px 0 rgba(130, 217, 211, 0.408));
     cursor: pointer;
-    z-index: 10;
 }
 
-div:has(.pokemon-3Dmodel) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-inline: auto;
-}
-
-.pokemon-3Dmodel {
+.pokemon_3Dmodel{
+    position: absolute;
+    left: 300px;
+    top: 10px;
     filter: drop-shadow(10px 10px 2px #39393951);
 }
 
-.pokemon-list {
+/*FIN POKEMON 3DMODEL*/
+
+/*POKEMON LIST*/
+
+.pokedex {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.pokemon_list {
     min-width: 400px;
     width: 100%;
     max-width: 520px;
@@ -272,7 +293,7 @@ div:has(.pokemon-3Dmodel) {
     margin-right: 20px;
 }
 
-.pokemon-list::-webkit-scrollbar {
+.pokemon_list::-webkit-scrollbar {
     display: none;
 }
 
@@ -291,21 +312,20 @@ div:has(.pokemon-3Dmodel) {
 }
 
 .pokemon:hover,
-.pokemon-active {
+.pokemon_active {
     background-image: linear-gradient(115deg, #f04f17 45%, black 45%);
     color: white;
 }
 
-.pokemon-active {
+.pokemon_active {
     position: relative;
 }
 
-.pokemon-active .pokemon__sprite {
+.pokemon_active .pokemon_sprite {
     animation: pokemon_jump 0.24s ease-in-out 2;
 }
 
 @keyframes pokemon_jump {
-
     from,
     to {
         translate: 0;
@@ -316,7 +336,7 @@ div:has(.pokemon-3Dmodel) {
     }
 }
 
-.pokemon__name {
+.pokemon_name {
     padding: 0 0.5rem;
 }
 
@@ -331,18 +351,18 @@ div:has(.pokemon-3Dmodel) {
     align-items: center;
 }
 
-.pokemon__sprite {
+.pokemon_sprite {
     width: 60px;
     scale: 1.2;
     transform-origin: bottom;
     margin-inline: 10px;
 }
 
-.pokemon__num {
+.pokemon_num {
     display: flex;
 }
 
-.pokemon__num--field {
+.pokemon_num_field {
     margin-left: 0.5rem;
 }
 
@@ -355,10 +375,12 @@ div:has(.pokemon-3Dmodel) {
     animation-play-state: paused;
 }
 
-.pokemon-active .pokeball {
+.pokemon_active .pokeball {
     animation: rotate 1600ms infinite linear;
     animation-play-state: running;
 }
+
+/*FIN POKEMON LIST*/
 
 @media screen and (max-width: 992px) {
     .pokedex {
@@ -366,7 +388,7 @@ div:has(.pokemon-3Dmodel) {
         height: calc(100vh - 46px);
     }
 
-    .gen-select {
+    .gen_select {
         top: 20px;
         right: 20px;
         gap: 10px 25px;
@@ -375,59 +397,92 @@ div:has(.pokemon-3Dmodel) {
         flex-direction: column;
     }
 
-    .gen-select input {
+    .gen_select input {
         transform-origin: top center;
         transition: margin-bottom 0.2s ease-in-out, scale 0.2s ease-in-out;
     }
 
-    .gen-select input:hover {
+    .gen_select input:hover {
         z-index: 20;
     }
 
-    .gen-select input:hover,
-    .gen-select input:checked {
+    .gen_select input:hover,
+    .gen_select input:checked {
         margin-bottom: 20px;
         margin-right: 0;
     }
 
-    .shiny-button {
+    .shiny_button {
         width: 4rem;
     }
 
-    div:has(.pokemon-3Dmodel) {
+    div:has(.pokemon_3Dmodel) {
         max-width: 475px;
         padding: 0 20px;
     }
 
-    .pokemon-list {
+    .pokemon_list {
         height: calc(100vh - 451px);
         margin-inline: auto;
         padding-right: 0;
     }
 }
 
+
+.pokemon_info_container {
+    position: absolute;
+    left: 140px;
+    width: 35%;
+}
+
+.pokemon_info_box{
+    font-size: 25px;
+    padding: 10px;
+    margin-top: 10rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column {
+    flex: 1;
+    min-width: 20%;
+    max-width: 50%;
+    padding: 0
+}
+
+.full_width {
+    width: 100%;
+    margin-top: 20px; 
+}
+
+.pokemon_info_box p{
+    margin-bottom: 10px;
+    color: var(--rosaOscuro);
+    font-weight: bolder;
+}
+
 @media screen and (max-width: 600px) {
-    .gen-select {
+    .gen_select {
         flex-wrap: wrap-reverse;
         height: 255px;
     }
 
-    .gen-select {
+    .gen_select {
         opacity: 0.5;
         transition: all 0.3s;
     }
 
-    .gen-select:hover {
+    .gen_select:hover {
         opacity: 1;
     }
 }
 
 @media screen and (max-width: 490px) {
-    div:has(.pokemon-3Dmodel) {
+    div:has(.pokemon_3Dmodel) {
         max-width: 300px;
     }
 
-    .pokemon-3Dmodel {
+    .pokemon_3Dmodel {
         margin-top: 70px;
     }
 
@@ -437,7 +492,7 @@ div:has(.pokemon-3Dmodel) {
 }
 
 @media screen and (max-width: 400px) {
-    .pokemon-list {
+    .pokemon_list {
         width: 100%;
         min-width: initial;
     }
