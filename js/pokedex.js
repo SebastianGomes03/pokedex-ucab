@@ -12,30 +12,13 @@ const generationStartIds = {
 	9: 1025,
 };
 
-const generationSelect = document.getElementsByClassName("gen-select")[0]; 
+const generationSelect = document.getElementsByClassName("gen_select")[0]; 
 
-const spriteGrandElement = document.querySelector(".pokemon-3Dmodel > img");
-const pokemonList = document.querySelector(".pokemon-list");
-const shinyButton = document.querySelector(".shiny-button");
+const spriteGrandElement = document.querySelector(".pokemon_3Dmodel > img");
+const pokemonList = document.querySelector(".pokemon_list");
+const shinyButton = document.querySelector(".shiny_button");
 
 let isShiny = false;
-
-customElements.define('yus-html',
-  class extends HTMLElement {
-      constructor() {
-          super();
-      }
-      connectedCallback() {
-          fetch(this.getAttribute("src"))
-              .then(r => r.text())
-              .then(t => {
-                  let parser = new DOMParser();
-                  let html = parser.parseFromString(t, "text/html");
-                  this.innerHTML = html.body.innerHTML;
-              }).catch(e => console.error(e));
-
-      }
-});
 
 document.addEventListener('DOMContentLoaded', function() {
     const firstGenStartId = generationStartIds[1];
@@ -73,7 +56,7 @@ function getPokeData(firstPoke, lastPoke) {
 
 			if (pokemonData.length > 0) {
                 const firstPokemonData = pokemonData[0];
-                document.querySelector(".pokemon").classList.add("pokemon-active");
+                document.querySelector(".pokemon").classList.add("pokemon_active");
                 fetchPokemonDetails(firstPokemonData.id); 
             }
 		});
@@ -89,16 +72,16 @@ function generateCard(data, lastPoke) {
 		data.sprites.versions["generation-viii"].icons.front_default;
 
 	pokemonList.innerHTML += ` 
-	<li class="pokemon${dex_number == lastPoke ? " pokemon-active" : ""}" data-sprite-grand="${spriteGrand}" data-shiny="${spriteGrandShiny}" data-id="${dex_number}">
+	<li class="pokemon${dex_number == lastPoke ? " pokemon_active" : ""}" data-sprite-grand="${spriteGrand}" data-shiny="${spriteGrandShiny}" data-id="${dex_number}">
   		<div>
-  			<div class="pokemon__sprite">
+  			<div class="pokemon_sprite">
   				<img src="${spriteIcon}" alt="sprite">
   			</div>
-  			<p class="pokemon__num">No. <span class="pokemon__num--field">${dex_number}</span></p>
+  			<p class="pokemon_num">No. <span class="pokemon_num_field">${dex_number}</span></p>
   		</div>
-  		<p class="pokemon__name">${name}</p>
+  		<p class="pokemon_name">${name}</p>
   		<div class="pokeball">
-  			<img src="img/pokeball.png" alt="pokeball">
+  			<img src="../img/pokeball.png" alt="pokeball">
   		</div>
   	</li>
   `;
@@ -122,11 +105,11 @@ function selectPokemon() {
 		pokemon.addEventListener("click", () => {
 			determinePokemonSprite(pokemon, isShiny);
 			pokemons.forEach((pokemon) => {
-				pokemon.classList.remove("pokemon-active");
+				pokemon.classList.remove("pokemon_active");
 			});
 			const pokemonId = pokemon.getAttribute("data-id");
             fetchPokemonDetails(pokemonId);
-			pokemon.classList.add("pokemon-active");
+			pokemon.classList.add("pokemon_active");
 		});
 	});
 }
@@ -163,7 +146,7 @@ function updateSpriteGrandElement(pokemonData) {
 }
 
 function updateInfoBox(pokemonData, evolutionData) {
-    const infoBox = document.querySelector(".pokemon-info-box");
+    const infoBox = document.querySelector(".pokemon_info_box");
     let evolutionChain = [];
     let currentEvolution = evolutionData.chain;
     do {
@@ -180,7 +163,7 @@ function updateInfoBox(pokemonData, evolutionData) {
         	<p>Weight: ${pokemonData.weight}</p>
         	<p>Abilities: ${pokemonData.abilities.map(ability => ability.ability.name).join(', ')}</p>
 		</div>
-		<div class="full-width">
+		<div class="full_width">
         	<p>Evolution Chain: ${evolutionChain.join(' -> ')}</p>
 		</div>
     `;
@@ -199,11 +182,11 @@ function toggleShiny() {
 	let pokemonSpriteLink =
 		"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
 	isShiny = !isShiny;
-	let shinyButtonImage = document.querySelector(".shiny-button > img");
+	let shinyButtonImage = document.querySelector(".shiny_button > img");
 	shinyButtonImage.src =
 		isShiny == true
-			? "img/shiny-stars-active.png"
-			: "img/shiny-stars.png";
+			? "../img/shiny-stars-active.png"
+			: "../img/shiny-stars.png";
 	if (isShiny) {
 		spriteGrandElement.src =
 			pokemonSpriteLink +
@@ -216,11 +199,5 @@ function toggleShiny() {
 	}
 }
 
-function toggleNavbar() {
-    var navbar = document.getElementById("navbar");
-    navbar.classList.toggle("active");
-	var sidebar = document.querySelector('.lateral');
-	sidebar.classList.toggle('active');
-}
 
 
