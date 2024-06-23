@@ -6,13 +6,13 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Pokemon</title>
     <link rel="stylesheet" href="./css/principal.css">
-    <script src='pokedex.js' defer></script>
+    <script src='pokedex.js' defer></script>   
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
 </head>
 <body id="principal"> 
-    <yus-html src="./navbar.html"></yus-html>
+    <div id="navbar-container"></div>
     <main>
         <section class="pokedex">
             <div class="shiny-button">
@@ -43,5 +43,6 @@
             </form>      
         </section>
     </main>
+    <script src="loadNavbar.js"></script>
 </body>
 </html>

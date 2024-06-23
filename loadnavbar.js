@@ -1,3 +1,4 @@
+const navbarHTML = `
 <section class="lateral">
     <div class="hamburger-icon" onclick="toggleNavbar()">☰</div>
     <li id="navbar">
@@ -22,3 +23,8 @@
         </div>
     </li>
 </section>
+`;
+
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById('navbar-container').innerHTML = navbarHTML;
+});
