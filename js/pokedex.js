@@ -171,7 +171,7 @@ async function getPokeData(firstPoke, lastPoke) {
 }
 
 //Función para generar una tarjeta de Pokémon y añadirla a la lista de Pokémon en la interfaz de usuario.
-function generateCard(data) {
+function generateCard(data, lastPoke) {
     const dex_number = data.id; // Número de la Pokédex del Pokémon.
     const name = data.name; // Nombre del Pokémon.
     // URL de la imagen oficial del Pokémon.
@@ -250,13 +250,35 @@ function selectPokemon() {
         // Marca el Pokémon seleccionado como activo, destacándolo visualmente.
 		pokemon.classList.add("pokemon_active");
 
-		// Construye la URL del archivo de sonido del Pokémon basado en su ID.
-        const soundUrl = `../sounds/${pokemonId}.ogg`;
-        // Crea un nuevo objeto Audio y lo reproduce.
-        const pokemonSound = new Audio(soundUrl);
-        pokemonSound.play();
+		// Reproduce el grito del Pokémon seleccionado.
+		playPokemonCry(pokemonId);
 		
     });
+}
+
+// Función para reproducir el grito de un Pokémon específico por su ID
+async function playPokemonCry(pokemonId) {
+	const pokemonData = [];
+        const dataFromDB = await getDataFromIndexedDB(pokemonId);
+            if (dataFromDB) {
+                // Si los datos están en IndexedDB, los agrega a la lista de datos de Pokémon.
+                pokemonData.push(dataFromDB);
+            } else {
+                // Si los datos no están en IndexedDB, realiza una solicitud a la API.
+                const finalUrl = `${url}${pokemonId}`;
+                const data = await fetch(finalUrl).then((response) => response.json());
+                // Agrega los datos obtenidos de la API a la lista de datos de Pokémon.
+                pokemonData.push(data);
+                // Almacena los datos obtenidos en IndexedDB para uso futuro.
+	}
+
+	console.log(pokemonData[0].cries.latest);
+
+	// Construye la URL del archivo de sonido del Pokémon basado en su ID.
+	const cryUrl = pokemonData[0].cries.latest; // URL to the cry file
+    const cryAudio = new Audio(cryUrl);
+    cryAudio.play();
+
 }
 
 //Solicita los detalles de un Pokémon específico de la base de datos IndexedDB y, si no está disponible, lo busca en línea.
