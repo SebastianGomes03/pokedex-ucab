@@ -73,17 +73,17 @@ async function initDB() {
         };
 
         request.onsuccess = (event) => {
-            db = event.target.result; // Asegúrate de que `db` esté definido en un ámbito accesible
+            db = event.target.result; // Almacena la referencia a la base de datos.
             resolve(db);
         };
 
-        request.onupgradeneeded = function(event) {
-    	db = event.target.result; // Almacena la referencia a la base de datos.
-    	// Verifica si el almacén de objetos "pokemons" ya existe, si no, lo crea.
-    	if (!db.objectStoreNames.contains("pokemons")) {
-        	db.createObjectStore("pokemons", { keyPath: "id" }); // Crea un almacén de objetos con "id" como clave primaria.
-    }
-};
+        request.onupgradeneeded = (event) => {
+            db = event.target.result; // Almacena la referencia a la base de datos.
+            // Verifica si el almacén de objetos "pokemons" ya existe, si no, lo crea.
+            if (!db.objectStoreNames.contains("pokemons")) {
+                db.createObjectStore("pokemons", { keyPath: "id" }); // Crea un almacén de objetos con "id" como clave primaria.
+            }
+        };
     });
 }
 
@@ -312,9 +312,7 @@ async function playPokemonCry(pokemonId) {
                 pokemonData.push(data);
                 // Almacena los datos obtenidos en IndexedDB para uso futuro.
 	}
-
-	console.log(pokemonData[0].cries.latest);
-
+	
 	// Construye la URL del archivo de sonido del Pokémon basado en su ID.
 	const cryUrl = pokemonData[0].cries.latest; // URL to the cry file
     const cryAudio = new Audio(cryUrl);
