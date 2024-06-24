@@ -36,7 +36,6 @@ let isShiny = false;
 let db;
 
 // Solicita la apertura de una base de datos IndexedDB llamada "PokedexDB" con versión 1.
-const request = indexedDB.open("PokedexDB", 1);
 
 // Evento que se dispara cuando el contenido del DOM ha sido completamente cargado.
 document.addEventListener('DOMContentLoaded', function() {
@@ -60,26 +59,37 @@ shinyButton.addEventListener("click", () => {
 window.addEventListener("load", () => getPokeData(1, 151)); // Carga los Pokémon del 1 al 151 al iniciar.
 
 // Maneja el evento necesario para actualizar la base de datos IndexedDB cuando se necesita una actualización.
-request.onupgradeneeded = function(event) {
-    db = event.target.result; // Almacena la referencia a la base de datos.
-    // Verifica si el almacén de objetos "pokemons" ya existe, si no, lo crea.
-    if (!db.objectStoreNames.contains("pokemons")) {
-        db.createObjectStore("pokemons", { keyPath: "id" }); // Crea un almacén de objetos con "id" como clave primaria.
+
+async function initDB() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open("PokedexDB", 1);
+
+        request.onerror = (event) => {
+            console.error("Database error:", event.target.error);
+            reject(event.target.error);
+        };
+
+        request.onsuccess = (event) => {
+            db = event.target.result; // Asegúrate de que `db` esté definido en un ámbito accesible
+            resolve(db);
+        };
+
+        request.onupgradeneeded = function(event) {
+    	db = event.target.result; // Almacena la referencia a la base de datos.
+    	// Verifica si el almacén de objetos "pokemons" ya existe, si no, lo crea.
+    	if (!db.objectStoreNames.contains("pokemons")) {
+        	db.createObjectStore("pokemons", { keyPath: "id" }); // Crea un almacén de objetos con "id" como clave primaria.
     }
 };
-
-// Maneja errores al intentar abrir la base de datos IndexedDB.
-request.onerror = function(event) {
-    console.error("Database error: ", event.target.error); // Muestra el error en la consola.
-};
-
-// Maneja el éxito al abrir la base de datos IndexedDB, almacenando la referencia a la base de datos.
-request.onsuccess = function(event) {
-    db = event.target.result; // Almacena la referencia a la base de datos abierta.
-};
+    });
+}
 
 // Función de ayuda para obtener datos de IndexedDB
 async function getDataFromIndexedDB(id) {
+	if (!db) {
+        console.log("Database is not initialized. Initializing now.");
+        await initDB();
+    }
    	// Retorna una promesa que se resuelve con los datos del Pokémon o se rechaza con un error.
     return new Promise((resolve, reject) => {
         // Inicia una transacción de solo lectura en el almacén de objetos "pokemons".
