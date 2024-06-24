@@ -38,14 +38,17 @@ let db;
 // Solicita la apertura de una base de datos IndexedDB llamada "PokedexDB" con versión 1.
 
 // Evento que se dispara cuando el contenido del DOM ha sido completamente cargado.
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     // Añade un evento de cambio al selector de generación.
     generationSelect.addEventListener('change', function() {
-        const gen = this.value; // Obtiene el valor de la generación seleccionada.
+        const { value: gen } = this; // Obtiene el valor de la generación seleccionada de manera más limpia.
         const firstPoke = generationStartIds[gen]; // Obtiene el primer Pokémon de la generación seleccionada.
-        // Calcula el último Pokémon de la generación seleccionada. Si es la última generación conocida,
-        // se usa su valor directamente; de lo contrario, se toma el primer Pokémon de la siguiente generación y se resta 1.
-        const lastPoke = gen < Object.keys(generationStartIds).length ? generationStartIds[parseInt(gen) + 1] - 1 : generationStartIds[gen]; 
+        
+        // Calcula el último Pokémon de la generación seleccionada de manera más eficiente.
+        const keys = Object.keys(generationStartIds);
+        const lastPokeIndex = +gen < keys.length ? +gen + 1 : +gen;
+        const lastPoke = lastPokeIndex < keys.length ? generationStartIds[keys[lastPokeIndex]] - 1 : generationStartIds[gen];
+        
         getPokeData(firstPoke, lastPoke); // Llama a la función para obtener datos de los Pokémon en el rango especificado.
     });
 });
@@ -178,6 +181,34 @@ async function getPokeData(firstPoke, lastPoke) {
         // Muestra un mensaje de error en la consola si ocurre un error durante el proceso.
         console.error("Failed to fetch or store Pokemon data:", error);
     }
+}
+
+async function storeDataInIndexedDB(pokemon) {
+    if (!db) {
+        console.error("Database is not initialized.");
+        return;
+    }
+
+    // Create a write transaction on the 'pokemons' object store
+    const transaction = db.transaction(['pokemons'], 'readwrite');
+
+    // Get the 'pokemons' object store from the transaction
+    const store = transaction.objectStore('pokemons');
+
+    // Attempt to save the Pokémon object to the object store
+    const request = store.put(pokemon); // Use `put` to update if the key already exists
+
+    return new Promise((resolve, reject) => {
+        request.onsuccess = function() {
+            console.log("Pokémon saved successfully.");
+            resolve(request.result);
+        };
+
+        request.onerror = function() {
+            console.error("Error saving Pokémon:", request.error);
+            reject(request.error);
+        };
+    });
 }
 
 //Función para generar una tarjeta de Pokémon y añadirla a la lista de Pokémon en la interfaz de usuario.
