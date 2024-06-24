@@ -95,51 +95,29 @@ async function getDataFromIndexedDB(id) {
     });
 }
 
-// Función de ayuda para almacenar datos en IndexedDB
-async function storeDataInIndexedDB(data) {
-    // Retorna una promesa que se resuelve cuando los datos se han almacenado correctamente o se rechaza con un error.
-    return new Promise((resolve, reject) => {
-        // Inicia una transacción de lectura/escritura en el almacén de objetos "pokemons".
-        const transaction = db.transaction(["pokemons"], "readwrite");
-        // Accede al almacén de objetos "pokemons".
-        const store = transaction.objectStore("pokemons");
-        // Realiza una solicitud para almacenar los datos del Pokémon.
-        const request = store.put(data);
-        // En caso de éxito, resuelve la promesa.
-        request.onsuccess = () => resolve();
-        // En caso de error, rechaza la promesa con el error ocurrido.
-        request.onerror = () => reject(request.error);
-    });
-}
-
-//Guarda los datos de un Pokémon en la base de datos IndexedDB.
-async function savePokemonData(pokemonData) {
-    try {
-        // Inicia una transacción en IndexedDB en modo "readwrite" para añadir los datos del Pokémon.
-        await dbTransaction("pokemons", "readwrite", store => store.add(pokemonData));
-        console.log("Pokémon guardado con éxito en IndexedDB.");
-    } catch (error) {
-        // Registra el error en caso de fallo al guardar los datos del Pokémon.
-        console.error("Error al guardar el Pokémon: ", error);
+// Función para guardar datos de Pokémon en IndexedDB
+function savePokemonData(pokemon) {
+    if (!db) {
+        console.error("Database is not initialized.");
+        return;
     }
-}
 
-//Obtiene los datos de un Pokémon específico de la base de datos IndexedDB.
-async function getPokemonData(pokemonId) {
-    try {
-        // Inicia una transacción en IndexedDB en modo "readonly" para obtener los datos del Pokémon.
-        const pokemonData = await dbTransaction("pokemons", "readonly", store => store.get(pokemonId));
-        if (pokemonData) {
-            // Si se encuentran los datos del Pokémon, registra un mensaje con los datos obtenidos.
-            console.log("Pokémon encontrado en IndexedDB: ", pokemonData);
-        } else {
-            // Si el Pokémon no se encuentra en la base de datos, registra un mensaje indicando que no fue encontrado.
-            console.log("Pokémon no encontrado en IndexedDB.");
-        }
-    } catch (error) {
-        // Registra el error en caso de fallo al obtener los datos del Pokémon.
-        console.error("Error al obtener el Pokémon: ", error);
-    }
+    // Crea una transacción de escritura en el almacén de objetos 'pokemon'
+    const transaction = db.transaction(['pokemons'], 'readwrite');
+
+    // Obtiene el almacén de objetos 'pokemon' de la transacción
+    const store = transaction.objectStore('pokemons');
+
+    // Intenta guardar el objeto Pokémon en el almacén de objetos
+    const request = store.put(pokemon); // Usar `add` o `put` según sea necesario. `put` actualiza si la clave ya existe.
+
+    request.onsuccess = function() {
+        console.log("Pokémon saved successfully.");
+    };
+
+    request.onerror = function() {
+        console.error("Error saving Pokémon:", request.error);
+    };
 }
 
 // Función asíncrona para obtener datos de Pokémon desde una API y almacenar/recuperar estos datos usando IndexedDB
@@ -193,7 +171,7 @@ async function getPokeData(firstPoke, lastPoke) {
 }
 
 //Función para generar una tarjeta de Pokémon y añadirla a la lista de Pokémon en la interfaz de usuario.
-function generateCard(data, lastPoke) {
+function generateCard(data) {
     const dex_number = data.id; // Número de la Pokédex del Pokémon.
     const name = data.name; // Nombre del Pokémon.
     // URL de la imagen oficial del Pokémon.
@@ -206,7 +184,7 @@ function generateCard(data, lastPoke) {
     const li = document.createElement('li'); // Crea un nuevo elemento 'li'.
     
     // Asigna clases al elemento 'li'. Si es el último Pokémon, añade la clase "pokemon_active".
-    li.className = `pokemon${dex_number == lastPoke ? " pokemon_active" : ""}`;
+    li.className = `pokemon`;
     
     // Establece atributos con las URLs de las imágenes y el número de la Pokédex.
     li.setAttribute('data-sprite-grand', spriteGrand);
@@ -270,7 +248,14 @@ function selectPokemon() {
         fetchPokemonDetails(pokemonId);
         
         // Marca el Pokémon seleccionado como activo, destacándolo visualmente.
-        pokemon.classList.add("pokemon_active");
+		pokemon.classList.add("pokemon_active");
+
+		// Construye la URL del archivo de sonido del Pokémon basado en su ID.
+        const soundUrl = `../sounds/${pokemonId}.ogg`;
+        // Crea un nuevo objeto Audio y lo reproduce.
+        const pokemonSound = new Audio(soundUrl);
+        pokemonSound.play();
+		
     });
 }
 
@@ -407,18 +392,22 @@ function updateShinyButtonImage(isShiny) {
 
 // Actualiza el sprite del Pokémon basado en si es shiny o no.
 function updatePokemonSprite(isShiny) {
-    // Obtiene el ID del Pokémon actual desde el elemento spriteGrandElement.
     const pokemonId = spriteGrandElement.getAttribute("data-id");
-    // Construye la URL del sprite y actualiza el src del elemento spriteGrandElement.
+    // Check if pokemonId is valid
+    if (!pokemonId) {
+        console.error("Invalid Pokemon ID");
+        return; // Exit the function if pokemonId is invalid
+    }
     spriteGrandElement.src = buildPokemonSpriteUrl(pokemonId, isShiny);
-    // Registra en consola si el sprite se actualizó a shiny o normal.
     console.log(`Sprite updated to ${isShiny ? "shiny" : "normal"}`);
 }
 
 // Construye la URL del sprite del Pokémon basado en su ID y si es shiny o no.
 function buildPokemonSpriteUrl(pokemonId, isShiny) {
-    // Añade el subdirectorio "shiny/" a la URL si el Pokémon es shiny.
     const shinyPath = isShiny ? "shiny/" : "";
-    // Construye y retorna la URL completa del sprite.
-    return `${BASE_SPRITE_URL}${shinyPath}${pokemonId}.png`;
+    const url = `${BASE_SPRITE_URL}${shinyPath}${pokemonId}.png`;
+    console.log(`Constructed URL: ${url}`); // Log the constructed URL for debugging
+    return url;
 }
+
+
