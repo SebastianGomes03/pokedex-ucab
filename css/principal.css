@@ -256,7 +256,7 @@ a {
 .shiny_button {
     position: absolute;
     left: 150px;
-    top: 20px;
+    top: 150px;
     width: 5rem;
     filter: drop-shadow(5px 5px 0 rgba(130, 217, 211, 0.408));
     cursor: pointer;
@@ -265,7 +265,7 @@ a {
 .pokemon_3Dmodel{
     position: absolute;
     left: 300px;
-    top: 10px;
+    top: 80px;
     filter: drop-shadow(10px 10px 2px #39393951);
 }
 
@@ -431,14 +431,15 @@ a {
 
 .pokemon_info_container {
     position: absolute;
+    top: 310px;
     left: 140px;
     width: 35%;
+    height: auto;
 }
 
 .pokemon_info_box{
     font-size: 25px;
     padding: 10px;
-    margin-top: 10rem;
     display: flex;
     flex-wrap: wrap;
 }
@@ -457,7 +458,6 @@ a {
 
 .pokemon_info_box p{
     margin-bottom: 10px;
-    color: var(--rosaOscuro);
     font-weight: bolder;
 }
 
