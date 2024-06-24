@@ -220,7 +220,9 @@ function generateCard(data, lastPoke) {
     // URL de la imagen oficial shiny del Pokémon.
     const spriteGrandShiny = data.sprites.other["official-artwork"].front_shiny;
     // URL del icono del sprite del Pokémon.
-    const spriteIcon = data.sprites.versions["generation-viii"].icons.front_default;
+    //const spriteIcon = data.sprites.versions["generation-viii"].icons.front_default;
+    const spriteIcon = data.sprites.front_default;
+
 
     const li = document.createElement('li'); // Crea un nuevo elemento 'li'.
     
