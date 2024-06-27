@@ -36,14 +36,20 @@
                 <img src="../img/shiny-stars.png" alt="shiny">
             </div>
             <!-- Contenedor del modelo 3D del Pokémon -->
-            <div>
+            <div class="poke">
                 <div class="pokemon_3Dmodel">
                     <img src="" class="pokemon_model">
+                    <button id="myBtn">Info</button>
                 </div>
             </div>
             <!-- Contenedor de la información del Pokémon -->
-            <div class="pokemon_info_container">
-                <div class="pokemon_info_box">
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="pokemon_info_container">
+                        <div class="pokemon_info_box">
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Lista de Pokémon -->
@@ -62,9 +68,10 @@
                 <input type="radio" name="gen" id="gen8" value="8" onclick="getPokeData(810, 905)">
                 <input type="radio" name="gen" id="gen9" value="9" onclick="getPokeData(906, 1025)">
                 <input type="radio" name="gen" id="alt_forms" value="0" onclick="getPokeData(10001, 10277)">
-            </form>      
+            </form>
         </section>
     </main>
     <script src="../js/loadnavbar.js"></script>
 </body>
+
 </html>
