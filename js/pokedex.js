@@ -114,7 +114,8 @@ async function initDB() {
       db = event.target.result; // Almacena la referencia a la base de datos.
       // Verifica si el almacén de objetos "pokemons" ya existe, si no, lo crea.
       if (!db.objectStoreNames.contains("pokemons")) {
-        db.createObjectStore("pokemons", { keyPath: "id" }); // Crea un almacén de objetos con "id" como clave primaria.
+        db.createObjectStore("pokemons", { keyPath: "id" }); // Crea un almacén de pokemones con "id" como clave primaria.
+        db.createObjectStore("items", { keyPath: "id" }); // Crea un almacén de objetos con "id" como clave primaria.
       }
     };
   });
@@ -638,3 +639,4 @@ function buildPokemonSpriteUrl(pokemonId, isShiny) {
   console.log(`Constructed URL: ${url}`); // Log the constructed URL for debugging
   return url;
 }
+

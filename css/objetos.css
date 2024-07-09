@@ -52,7 +52,6 @@ html::-webkit-scrollbar {
 
 .lateral {
     height: 100vh;
-    background-color: var(--rosa);
     position: fixed;
     z-index: 1000;
 }
@@ -63,6 +62,40 @@ img {
 
 li {
     list-style: none;
+
+}
+
+#item-list {
+    min-width: 400px;
+    width: 100%;
+    max-width: 520px;
+    height: calc(100vh - 56px);
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 10px 20px 0;
+    background: var(--rosa);
+}
+
+.item_sprite {
+    width: 35px;
+    scale: 1.2;
+    transform-origin: bottom;
+    margin-inline: 10px;
+    transition: scale .3s ease;
+}
+
+.item_sprite:hover {
+    scale: 1.5;
+    cursor: pointer;
+}
+
+.item_name {
+    font-size: 1.2rem;
+    color: #FFFFFF;
+    margin-inline: 10px;
+    text-transform: capitalize;
 }
 
 a {
