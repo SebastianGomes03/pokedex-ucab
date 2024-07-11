@@ -94,7 +94,6 @@ li {
     right: 0;
     top: 2rem;
 }
-
 .item {
     display: flex;
     align-items: center;
@@ -138,4 +137,19 @@ li {
 a {
     text-decoration: none;
     color: #FFFFFF;
+}
+
+.extended-info {
+    position: absolute;
+    margin-left: 2rem;
+    max-width: 400px;
+}
+
+.titulo {
+    text-transform: uppercase;
+}
+
+.atributo {
+    font-weight: bolder;
+    font-style: italic;
 }
