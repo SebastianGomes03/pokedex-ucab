@@ -551,7 +551,7 @@ a {
     .gen_select {
           display: grid;
         grid-template-columns: repeat(2, 50px); /* Crea dos columnas */
-        gap: 20px 10px;
+        gap: 50px 10px;
         left: 10px;
         flex-direction: column; /* Esta línea puede eliminarse ya que grid reemplaza a flex aquí */
         top: 50px;
