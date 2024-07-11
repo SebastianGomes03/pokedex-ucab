@@ -554,6 +554,7 @@ a {
         /* Ajustar la posición para pantallas pequeñas */
         flex-direction: column;
         /* Apilar verticalmente */
+        top:50px;
     }
 
     .pokemon_list {
