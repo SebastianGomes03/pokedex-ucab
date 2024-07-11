@@ -555,6 +555,8 @@ a {
 
     .gen_select {
         display: flex;
+        flex-direction: row;
+        gap: 10px;
             position: absolute;
             /* Cambiado a absolute para posicionar en la parte superior */
             top: 0;
@@ -570,7 +572,8 @@ a {
             padding: 10px;
             z-index: 1000;
         }
-    .modal{
+
+    .modal-content{
         z-index: 1000;
     }
 
