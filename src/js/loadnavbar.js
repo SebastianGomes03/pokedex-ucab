@@ -47,13 +47,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Función para alternar la visibilidad de la barra de navegación lateral.
 function toggleNavbar() {
-    // Obtiene el elemento de la barra de navegación por su ID.
-    var navbar = document.getElementById("navbar");
-    // Alterna la clase 'active' para mostrar u ocultar la barra de navegación.
+ var navbar = document.getElementById("navbar");
     navbar.classList.toggle("active");
 
-    // Obtiene el elemento de la barra lateral (sidebar) por su clase.
     var sidebar = document.querySelector('.lateral');
-    // Alterna la clase 'active' en la barra lateral para expandir o colapsar.
     sidebar.classList.toggle('active');
+
+    // Aquí se alterna la visibilidad del fondo oscuro
+    var backdrop = document.getElementById("backdrop");
+    backdrop.style.display = backdrop.style.display === "none" ? "block" : "none";
 }
