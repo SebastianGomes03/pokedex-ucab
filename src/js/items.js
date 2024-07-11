@@ -162,9 +162,9 @@ function generateItemCard(data) {
             <p class="item_name">${name}</p>
         </div>
     `;
+    li.childNodes[1].childNodes[3].addEventListener("click", () => generarInformacionExtendida(id))
   }
 
-  li.childNodes[1].childNodes[3].addEventListener("click", () => generarInformacionExtendida(id))
 
   itemList.appendChild(li); // Añade el elemento 'li' a la lista de objetos en el DOM.
 }

@@ -143,6 +143,11 @@ a {
     position: absolute;
     margin-left: 2rem;
     max-width: 400px;
+    max-height: 400px;
+    background-color: var(--blanco);
+    padding: 1rem;
+    border: 5px solid var(--negro);
+    border-radius: 10px;
 }
 
 .titulo {
