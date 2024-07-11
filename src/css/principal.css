@@ -550,11 +550,8 @@ a {
 
         .pokemon_info_button {
             pointer-events: auto;
-            /* Habilita eventos del puntero */
             z-index: 1001;
-            /* Asegura que esté por encima de otros elementos */
             position: relative;
-            /* Necesario para que z-index funcione */
         }
 
     .gen_select {
@@ -565,7 +562,6 @@ a {
         top: 50px;
         margin-bottom: 20px;
         padding: 10px;
-        z-index: 1000;
     }
 
     .gen_select button {
