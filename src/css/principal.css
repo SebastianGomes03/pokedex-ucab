@@ -559,11 +559,10 @@ a {
         z-index: 1000;
     }
 
-                .gen_select button {
-                    pointer-events: auto;
-                    display: none;
-                    /* Asegura que los botones sean clickeables */
-                }
+    .gen_select button {
+        pointer-events: auto;
+        display: none !important;
+    }
 
     .pokemon_list {
         min-width: 300px;
