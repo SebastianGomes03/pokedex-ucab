@@ -198,14 +198,12 @@ async function generarInformacionExtendida(id) {
   extended_info.innerHTML = "";
   try {
     const data = await getItemFromIndexedDB(id);
-    let generation_number = data.game_indices[0].generation.name.split('-');
 
     extended_info.innerHTML = /*html*/`
       <div class="extended-info">
         <h2 class="titulo">${data.name}</h2>
         <p><span class="atributo">Costo: </span>${data.cost}</p>
         <p><span class="atributo">Descripción: </span>${data.effect_entries[0].effect}</p>
-        <p><span class="atributo">Primera aparición: </span><span class="generacion">${generation_number[1]}</span> Generación</p>
       </div>
     `
    
