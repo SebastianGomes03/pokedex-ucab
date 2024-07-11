@@ -141,7 +141,8 @@ a {
 
 .extended-info {
     position: absolute;
-    margin-left: 2rem;
+    margin-left: 10rem;
+    margin-top: 10rem;
     max-width: 400px;
     max-height: 400px;
     background-color: var(--blanco);
@@ -157,4 +158,8 @@ a {
 .atributo {
     font-weight: bolder;
     font-style: italic;
+}
+
+.generacion {
+    text-transform: uppercase;
 }

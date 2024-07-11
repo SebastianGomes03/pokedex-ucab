@@ -132,6 +132,13 @@ a {
 
 }
 
+.pokeods-info{
+    width: 29rem;
+    margin-top: 1rem;
+    line-height: 25px;
+    text-align: justify;
+}
+
 .overlay{
     position: fixed;
     top: 0;
