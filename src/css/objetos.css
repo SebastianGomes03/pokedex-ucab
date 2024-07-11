@@ -20,6 +20,7 @@ html::-webkit-scrollbar {
     --rosa: #FF808B;
     --rosaOscuro: #FE6673;
     --negro: #000000;
+    --blanco: #ffffff;
     --attachment: fixed;
     --colorStop-1: 60%;
     --colorStop-2: calc(var(--colorStop-1) + 80px);
@@ -72,19 +73,26 @@ li {
 
 .objetos {
     margin-left: 2rem;
+    text-align: right;
+}
+
+.objetos > * {
+    display: inline-block;
 }
 
 #item-list {
-    min-width: 400px;
-    
-    width: 100%;
-    max-width: 520px;
-    height: calc(100vh - 56px);
-    overflow-y: scroll;
+    position: absolute;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    height: calc(100vh - 56px);
+    overflow-y: scroll;
+    scrollbar-width: none;
     gap: 15px;
     padding: 20px 10px 20px 0;
+    right: 0;
+    top: 2rem;
 }
 
 .item {
@@ -117,8 +125,8 @@ li {
 }
 
 #buttons {
-    display: flex;
-    margin-left: 2rem;
+    position: relative;
+    
 }
 
 .button {
