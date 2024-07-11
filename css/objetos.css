@@ -19,6 +19,7 @@ html::-webkit-scrollbar {
 :root {
     --rosa: #FF808B;
     --rosaOscuro: #FE6673;
+    --negro: #000000;
     --attachment: fixed;
     --colorStop-1: 60%;
     --colorStop-2: calc(var(--colorStop-1) + 80px);
@@ -62,11 +63,11 @@ img {
 
 li {
     list-style: none;
-
 }
 
 #item-list {
     min-width: 400px;
+    
     width: 100%;
     max-width: 520px;
     height: calc(100vh - 56px);
@@ -75,7 +76,15 @@ li {
     flex-direction: column;
     gap: 15px;
     padding: 20px 10px 20px 0;
-    background: var(--rosa);
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: .3s;
 }
 
 .item_sprite {
@@ -93,9 +102,17 @@ li {
 
 .item_name {
     font-size: 1.2rem;
-    color: #FFFFFF;
+    color: var(--negro);
     margin-inline: 10px;
     text-transform: capitalize;
+}
+
+#buttons {
+    display: flex;
+}
+
+.button {
+    width: fit-content;
 }
 
 a {
