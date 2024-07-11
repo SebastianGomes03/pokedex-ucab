@@ -549,12 +549,14 @@ a {
     }
 
     .gen_select {
-        left: 10px;
-        /* Ajustar la posición para pantallas pequeñas */
-        flex-direction: column;
-        /* Apilar verticalmente */
-        top:50px;
-        margin-bottom: 10px;
+            left: 10px;
+                /* Ajustar la posición para pantallas pequeñas */
+                flex-direction: column;
+                /* Apilar verticalmente */
+                top: 50px;
+                margin-bottom: 20px;
+                /* Aumentado de 10px a 20px para más separación */
+                padding: 10px;
     }
 
     .pokemon_list {
