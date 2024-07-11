@@ -545,8 +545,17 @@ a {
 
     .modal-content,
     .pokemon_model {
-        width: 50%;
+        width: 90%;
     }
+
+        .pokemon_info_button {
+            pointer-events: auto;
+            /* Habilita eventos del puntero */
+            z-index: 1001;
+            /* Asegura que esté por encima de otros elementos */
+            position: relative;
+            /* Necesario para que z-index funcione */
+        }
 
     .gen_select {
           display: grid;
