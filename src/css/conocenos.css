@@ -41,15 +41,15 @@ body{
     height: 80%;
 }
 
-.pokemon-card .front h1{
-        position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 45px;
-            line-height: 45px;
-            color: #FFFFFF;
-            background: rgba(0, 0, 0, .4);
-            text-align: center;
+.pokemon-card .front h2 {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    color: #FFFFFF;
+    background: rgba(0, 0, 0, .4);
+    text-align: center;
 }
 
 .pokemon-card .back {
@@ -76,6 +76,24 @@ body{
     color: #333;
     margin-top: 5px;
     font-size: 30px;
+}
+
+.instagram-btn {
+    display: inline-block;
+    background-color: #E1306C;
+    /* Color de Instagram */
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.instagram-btn:hover {
+    background-color: #C13584;
+    /* Color oscuro para el hover */
 }
 
 /* Estilos para tabletas */
