@@ -570,6 +570,9 @@ a {
             padding: 10px;
             z-index: 1000;
         }
+    .modal{
+        z-index: 1000;
+    }
 
     .gen_select button {
         pointer-events: auto;
