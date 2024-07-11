@@ -104,19 +104,33 @@ a {
 
 /*NAVBAR*/
 
+.navbar_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--rosa);
+    color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
 .logo {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+    display: grid;
+    padding: 10px;
+    /* Reducido de 20px a 10px */
 }
 
 .container {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 15px;
+    padding: 10px;
     transition: .3s;
+    width: 100%;
 }
 
 .container:hover {
@@ -138,12 +152,12 @@ a {
 }
 
 .lateral {
-    height: 100vh;
+    height: 75vh;
+    width: 100px;
     background-color: transparent;
     position: fixed;
     z-index: 1000;
 }
-
 .lateral.active {
     background-color: var(--rosa);
     transition: 0.5s;
