@@ -166,7 +166,7 @@ a {
 }
 
 .lateral {
-    height: 75vh;
+    height: 100%;
     width: 100px;
     background-color: transparent;
     position: fixed;
