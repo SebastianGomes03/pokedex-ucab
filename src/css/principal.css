@@ -556,6 +556,7 @@ a {
     .gen_select {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         gap: 10px;
             position: absolute;
             /* Cambiado a absolute para posicionar en la parte superior */
@@ -574,11 +575,12 @@ a {
         }
 
     .modal-content{
-        z-index: 1000;
+        z-index: 2000;
     }
 
     .gen_select button {
         pointer-events: auto;
+        flex: 1 1 calc(50% - 10px);
     }
 
     .pokemon_list {
