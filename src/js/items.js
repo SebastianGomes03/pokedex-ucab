@@ -20,6 +20,9 @@ let loading = document.getElementById("loading");
 // Lista de elementos que no existen en la API
 let inexistent_items = [];
 
+// Objeto que contendra la información extendida de un objeto seleccionado
+let extended_info = document.getElementById("extended-info")
+
 // inicio y fin de la lista de objetos
 const list_starts_ends = [
   [1, 241],
@@ -159,7 +162,9 @@ function generateItemCard(data) {
             <p class="item_name">${name}</p>
         </div>
     `;
+    li.childNodes[1].childNodes[3].addEventListener("click", () => generarInformacionExtendida(id))
   }
+
 
   itemList.appendChild(li); // Añade el elemento 'li' a la lista de objetos en el DOM.
 }
@@ -189,5 +194,24 @@ function generarBotones() {
 
 }
 
+// Funcion para generar información extendida de un objeto
+async function generarInformacionExtendida(id) {
+  extended_info.innerHTML = "";
+  try {
+    const data = await getItemFromIndexedDB(id);
+    extended_info.innerHTML = /*html*/`
+      <div class="extended-info">
+        <h2 class="titulo">${data.name}</h2>
+        <p><span class="atributo">Costo: </span>${data.cost}</p>
+        <p><span class="atributo">Descripción: </span>${data.effect_entries[0].effect}</p>
+      </div>
+    `
+   
+  } catch (error) {
+    console.log("Error al sacar informacion del objeto " + id + " de la base de datos: " + error);
+  }
+}
+
 window.addEventListener("load", () => loadItems(1, 241)); // Carga los objetos del 1 al 100 cuando la página se carga por primera vez.
+window.addEventListener("load", () => generarInformacionExtendida(1)) // Carga de la informacion extendida del objeto 1
 window.addEventListener("load", () => generarBotones())
