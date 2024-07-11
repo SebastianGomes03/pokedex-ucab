@@ -549,14 +549,14 @@ a {
     }
 
     .gen_select {
-            left: 10px;
-                /* Ajustar la posición para pantallas pequeñas */
-                flex-direction: column;
-                /* Apilar verticalmente */
-                top: 50px;
-                margin-bottom: 20px;
-                /* Aumentado de 10px a 20px para más separación */
-                padding: 10px;
+          display: grid;
+        grid-template-columns: repeat(2, 50px); /* Crea dos columnas */
+        gap: 10px; /* Espacio entre las columnas */
+        left: 10px;
+        flex-direction: column; /* Esta línea puede eliminarse ya que grid reemplaza a flex aquí */
+        top: 50px;
+        margin-bottom: 20px;
+        padding: 10px;
     }
 
     .pokemon_list {
