@@ -63,10 +63,6 @@
     font-family: 'Kanit', sans-serif;
 }
 
-html::-webkit-scrollbar {
-    display: none;
-}
-
 :root {
     --rosa: #FF808B;
     --rosaOscuro: #FE6673;
@@ -77,6 +73,19 @@ html::-webkit-scrollbar {
     --degrees: 100deg;
     --colorStop-1: 50%;
     --colorStop-2: calc(var(--colorStop-1) + 100px);
+}
+
+#backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    /* Asegúrate de que esté detrás de la barra lateral pero por encima de otros contenidos */
+    display: none;
+    /* Oculto por defecto */
 }
 
 body {
@@ -95,6 +104,7 @@ body {
     overflow: hidden;
 }
 
+
 img {
     width: 100%;
 }
@@ -108,19 +118,33 @@ a {
 
 /*NAVBAR*/
 
+.navbar_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--rosa);
+    color: white;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
 .logo {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+    display: grid;
+    padding: 10px;
+    /* Reducido de 20px a 10px */
 }
 
 .container {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 15px;
+    padding: 10px;
     transition: .3s;
+    width: 100%;
 }
 
 .container:hover {
@@ -142,12 +166,12 @@ a {
 }
 
 .lateral {
-    height: 100vh;
+    height: 75vh;
+    width: 100px;
     background-color: transparent;
     position: fixed;
     z-index: 1000;
 }
-
 .lateral.active {
     background-color: var(--rosa);
     transition: 0.5s;
@@ -302,8 +326,8 @@ a {
 
 .shiny_button {
     position: absolute;
-    left: 80px;
-    top: 150px;
+    left: 350px;
+    top: 10px;
     width: 5rem;
     filter: drop-shadow(5px 5px 0 rgba(130, 217, 211, 0.408));
     cursor: pointer;
@@ -502,53 +526,108 @@ a {
 }
 
 .pokemon_info_box p {
-    margin-bottom: 10px;
     font-weight: bolder;
 }
 
-@media screen and (max-width: 600px) {
-    .gen_select {
-        flex-wrap: wrap-reverse;
-        height: 255px;
-    }
-
-    .gen_select {
-        opacity: 0.5;
-        transition: all 0.3s;
-    }
-
-    .gen_select:hover {
-        opacity: 1;
-    }
+.pokemon_info_box {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    font-weight: 500;
+    text-transform: capitalize;
 }
 
-@media screen and (max-width: 490px) {
-    div:has(.pokemon_3Dmodel) {
-        max-width: 300px;
+
+/* Estilos base ya proporcionados, no se repiten aquí */
+
+/* Media Query para pantallas pequeñas (menos de 600px) */
+@media (max-width: 600px) {
+
+    .modal-content,
+    .pokemon_model {
+        width: 90%;
     }
 
-    .pokemon_3Dmodel {
-        margin-top: 70px;
+        .pokemon_info_button {
+            pointer-events: auto;
+            /* Habilita eventos del puntero */
+            z-index: 1001;
+            /* Asegura que esté por encima de otros elementos */
+            position: relative;
+            /* Necesario para que z-index funcione */
+        }
+
+    .gen_select {
+          display: grid;
+        grid-template-columns: repeat(2, 50px); /* Crea dos columnas */
+        gap: 50px 10px;
+        left: 10px;
+        top: 50px;
+        margin-bottom: 20px;
+        padding: 10px;
+        z-index: 1000;
     }
 
-    .pokedex {
-        justify-content: space-between;
+    .gen_select button {
+        pointer-events: auto;
     }
-}
 
-@media screen and (max-width: 400px) {
     .pokemon_list {
-        width: 100%;
-        min-width: initial;
+        min-width: 300px;
+        /* Ajustar el ancho mínimo */
     }
 
-    .pokeball {
-        display: none;
+    body,
+    .close {
+        font-size: 14px;
+        /* Ajustar el tamaño de la fuente */
     }
 }
 
+/* Media Query para pantallas medianas (entre 600px y 900px) */
+@media (min-width: 601px) and (max-width: 900px) {
 
-.modal-content .pokemon-info {}
+    .modal-content,
+    .pokemon_model {
+        width: 80%;
+        /* Ajustar el ancho para pantallas medianas */
+    }
+
+    .gen_select {
+        left: 50px;
+        /* Ajustar la posición para pantallas medianas */
+    }
+
+    body,
+    .close {
+        font-size: 16px;
+        /* Ajustar el tamaño de la fuente */
+    }
+}
+
+/* Media Query para pantallas grandes (más de 900px) */
+@media (min-width: 901px) {
+
+    .modal-content,
+    .pokemon_model {
+        width: 60%;
+        /* Mantener el ancho para pantallas grandes */
+    }
+
+    body,
+    .close {
+        font-size: 18px;
+        /* Ajustar el tamaño de la fuente para legibilidad */
+    }
+}
+
+/* Ajustes generales para responsividad */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
 
 /* Add the following code to the existing CSS file */
 

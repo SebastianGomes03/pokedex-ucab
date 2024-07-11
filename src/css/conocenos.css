@@ -1,0 +1,124 @@
+body{
+    overflow: visible;
+}
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    max-width: 100%;
+    justify-content: center;
+    margin: auto;
+    /* Ajusta este valor si es necesario para acomodar el margen */
+}
+
+.pokemon-card {
+    position: relative;
+    width: 60%;
+    margin: 5% auto;
+    height: 300px;
+    perspective: 1000px;
+}
+
+.pokemon-card .face {
+    background-color: #f3f3f3;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: .5s;
+}
+
+.pokemon-card .front {
+    transform: perspective(600px) rotateY(0deg);
+    box-shadow: 0 5px 10px #000;
+}
+
+.pokemon-card .front img {
+    position: absolute;
+    width: 100%;
+    height: 80%;
+}
+
+.pokemon-card .front h2 {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    color: #FFFFFF;
+    background: rgba(0, 0, 0, .4);
+    text-align: center;
+}
+
+.pokemon-card .back {
+        transform: perspective(600px) rotateY(180deg);
+            padding: 15px;
+            color: #f3f3f3;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            box-shadow: 0 5px 10px #000;
+}
+
+.pokemon-card:hover .front{
+    transform: perspective(600px) rotateY(180deg);
+}
+
+.pokemon-card:hover .back{
+    transform: perspective(600px) rotateY(0deg);
+}
+
+.pokemon-card p {
+    font-weight: bold;
+    color: #333;
+    margin-top: 5px;
+    font-size: 30px;
+}
+
+.instagram-btn {
+    display: inline-block;
+    background-color: #E1306C;
+    /* Color de Instagram */
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.instagram-btn:hover {
+    background-color: #C13584;
+    /* Color oscuro para el hover */
+}
+
+/* Estilos para tabletas */
+@media (min-width: 768px) {
+    .pokemon-card {
+        width: 45%;
+        /* Ajusta para que dos cartas quepan en una fila en tabletas */
+        margin: 2.5%;
+        /* Ajusta los márgenes para tabletas */
+    }
+}
+
+/* Estilos para escritorios */
+@media (min-width: 1024px) {
+    .pokemon-card {
+        width: 300px;
+        /* Restablece el ancho fijo de las cartas para escritorios */
+        margin: 20px;
+        /* Restablece el margen original */
+    }
+
+    .cards-container {
+        max-width: 680px;
+        /* Restablece el ancho máximo para escritorios */
+        margin: auto;
+        /* Centra el contenedor en la página */
+    }
+}

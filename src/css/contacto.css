@@ -1,0 +1,121 @@
+.Contenedor{
+    padding: 50px;
+}
+.contact-form-container {
+    max-width: 600px;
+    margin: 0px auto;
+    padding: 20px;
+    background-color: #FE6673;
+    /* Amarillo Pokémon */
+    border: 2px solid #FF808B;
+    /* Azul Pokémon */
+    border-radius: 10px;
+    box-shadow: 0 0 10px #FF808B;
+}
+
+.contact-form-container h2 {
+    text-align: center;
+    color: #f3f3f3;
+    /* Azul Pokémon */
+    font-family: 'Roboto Slab', serif;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #f3f3f3;
+    /* Azul Pokémon */
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    /* Azul Pokémon */
+    box-sizing: border-box;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #f3f3f3;
+    /* Azul Pokémon */
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+button:hover {
+    background-color: #FF808B;
+    /* Amarillo Pokémon */
+    color: #f3f3f3;
+    /* Azul Pokémon */
+    border: 1px solid #f3f3f3;
+}
+
+/* Estilos base ya definidos */
+
+/* Media query para teléfonos */
+@media (max-width: 767px) {
+    .contact-form-container {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+        /* Ajusta el tamaño de la fuente para mejorar la legibilidad */
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 8px;
+        /* Ajusta el padding para que los campos no sean demasiado grandes */
+    }
+
+    button {
+        padding: 12px;
+        /* Ajusta el padding para que el botón sea fácil de tocar */
+        font-size: 14px;
+        /* Ajusta el tamaño de la fuente del botón */
+    }
+}
+
+/* Media query para tabletas */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .contact-form-container {
+        margin: 20px auto;
+        /* Aumenta el margen para tabletas */
+        padding: 30px;
+        /* Aumenta el padding para una mejor visualización */
+    }
+
+    .form-group label {
+        font-size: 16px;
+        /* Aumenta el tamaño de la fuente para una mejor legibilidad */
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 10px;
+        /* Ajusta el padding para equilibrar el tamaño de los campos */
+    }
+
+    button {
+        padding: 15px;
+        /* Aumenta el padding para un toque más fácil */
+        font-size: 16px;
+        /* Aumenta el tamaño de la fuente del botón */
+    }
+}

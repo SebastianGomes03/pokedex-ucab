@@ -114,7 +114,8 @@ async function initDB() {
       db = event.target.result; // Almacena la referencia a la base de datos.
       // Verifica si el almacén de objetos "pokemons" ya existe, si no, lo crea.
       if (!db.objectStoreNames.contains("pokemons")) {
-        db.createObjectStore("pokemons", { keyPath: "id" }); // Crea un almacén de objetos con "id" como clave primaria.
+        db.createObjectStore("pokemons", { keyPath: "id" }); // Crea un almacén de pokemones con "id" como clave primaria.
+        db.createObjectStore("items", { keyPath: "id" }); // Crea un almacén de objetos con "id" como clave primaria.
       }
     };
   });
@@ -276,7 +277,7 @@ function generateCard(data, lastPoke) {
         </div>
         <p class="pokemon_name">${name}</p>
         <div class="pokeball">
-            <img src="/img/pokeball.png" alt="pokeball">
+            <img src="./img/pokeball.png" alt="pokeball">
         </div>
     `;
 
@@ -616,7 +617,7 @@ function updateShinyButtonImage(isShiny) {
   // Selecciona el elemento de imagen dentro del botón shiny.
   const shinyButtonImage = document.querySelector(".shiny_button > img");
   // Actualiza el src de la imagen basado en el estado shiny.
-  shinyButtonImage.src = isShiny ? "..img/shiny-stars-active.png" : "..img/shiny-stars.png";
+  shinyButtonImage.src = isShiny ? "./img/shiny-stars-active.png" : "./img/shiny-stars.png";
 }
 
 // Actualiza el sprite del Pokémon basado en si es shiny o no.
@@ -638,3 +639,4 @@ function buildPokemonSpriteUrl(pokemonId, isShiny) {
   console.log(`Constructed URL: ${url}`); // Log the constructed URL for debugging
   return url;
 }
+

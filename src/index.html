@@ -11,9 +11,9 @@
     <!-- Título de la página -->
     <title>Pokemon</title>
     <!-- Vincula la hoja de estilos principal -->
-    <link rel="stylesheet" href="../css/principal.css">
+    <link rel="stylesheet" href="./css/principal.css">
     <!-- Carga el script de la Pokedex, con defer para que se ejecute después de que el documento se haya cargado completamente -->
-    <script src='../js/pokedex.js' defer></script>
+    <script src='./js/pokedex.js' defer></script>
     <!-- Preconecta con Google Fonts para mejorar la carga de las fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,18 +22,19 @@
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Roboto+Slab:wght@500&display=swap"
         rel="stylesheet">
     <!-- Icono de la pestaña del navegador -->
-    <link rel="icon" href="../img/icon.png">
+    <link rel="icon" href="./img/icon.png">
 </head>
 
 <body id="principal">
     <!-- Contenedor de la barra de navegación -->
+    <div id="backdrop" style="display:none;"></div>
     <div id="navbar_container"></div>
     <main>
         <!-- Sección principal de la Pokedex -->
         <section class="pokedex">
             <!-- Botón para alternar entre Pokémon normal y shiny -->
             <div class="shiny_button">
-                <img src="../img/shiny-stars.png" alt="shiny">
+                <img src="./img/shiny-stars.png" alt="shiny">
             </div>
             <!-- Contenedor del modelo 3D del Pokémon -->
             <div class="poke">
@@ -71,7 +72,7 @@
             </form>
         </section>
     </main>
-    <script src="../js/loadnavbar.js"></script>
+    <script src="./js/loadnavbar.js"></script>
 </body>
 
 </html>

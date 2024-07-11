@@ -19,6 +19,8 @@ html::-webkit-scrollbar {
 :root {
     --rosa: #FF808B;
     --rosaOscuro: #FE6673;
+    --negro: #000000;
+    --blanco: #ffffff;
     --attachment: fixed;
     --colorStop-1: 60%;
     --colorStop-2: calc(var(--colorStop-1) + 80px);
@@ -52,7 +54,6 @@ html::-webkit-scrollbar {
 
 .lateral {
     height: 100vh;
-    background-color: var(--rosa);
     position: fixed;
     z-index: 1000;
 }
@@ -63,6 +64,75 @@ img {
 
 li {
     list-style: none;
+}
+
+#loading {
+    display: none;
+    font-weight: bold;
+}
+
+.objetos {
+    margin-left: 2rem;
+    text-align: right;
+}
+
+.objetos > * {
+    display: inline-block;
+}
+
+#item-list {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    height: calc(100vh - 56px);
+    overflow-y: scroll;
+    scrollbar-width: none;
+    gap: 15px;
+    padding: 20px 10px 20px 0;
+    right: 0;
+    top: 2rem;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    transition: .3s;
+}
+
+.item_sprite {
+    width: 35px;
+    scale: 1.2;
+    transform-origin: bottom;
+    margin-inline: 10px;
+    transition: scale .3s ease;
+}
+
+.item_sprite:hover {
+    scale: 1.5;
+    cursor: pointer;
+}
+
+.item_name {
+    font-size: 1.2rem;
+    color: var(--negro);
+    margin-inline: 10px;
+    text-transform: capitalize;
+}
+
+#buttons {
+    position: relative;
+    
+}
+
+.button {
+    width: fit-content;
+    padding: 5px;
+    cursor: pointer;
 }
 
 a {
