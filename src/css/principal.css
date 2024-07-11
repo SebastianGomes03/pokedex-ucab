@@ -546,7 +546,6 @@ a {
     .modal-content,
     .pokemon_model {
         width: 90%;
-        left: 0;
     }
 
     .gen_select {
@@ -555,6 +554,7 @@ a {
         flex-direction: column;
         /* Apilar verticalmente */
         top:50px;
+        margin-bottom: 10px;
     }
 
     .pokemon_list {
