@@ -13,7 +13,7 @@ body{
 
 .pokemon-card {
     position: relative;
-    width: 90%;
+    width: 60%;
     margin: 5% auto;
     height: 300px;
     perspective: 1000px;
