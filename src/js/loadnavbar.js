@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <a href="${isOnIndexPage ? './html/contacto.html' : './contacto.html'}">Contacto</a>
             </div>
             <div class="container">
-                <a href="${isOnIndexPage ? './html/contacto.html' : './contacto.html'}"><img src="${isOnIndexPage ? './img/iconods.png' : '../img/contacticon.png'}"></a>
-                <a href="${isOnIndexPage ? './html/contacto.html' : './contacto.html'}">ODS</a>
+                <a href="${isOnIndexPage ? './html/ods.html' : './ods.html'}"><img src="${isOnIndexPage ? './img/iconods.png' : '../img/iconods.png'}"></a>
+                <a href="${isOnIndexPage ? './html/ods.html' : './ods.html'}">ODS</a>
             </div>
         </li>
     </section>

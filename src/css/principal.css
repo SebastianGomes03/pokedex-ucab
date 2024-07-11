@@ -550,7 +550,7 @@ a {
 
         .poke #myBtn {
             pointer-events: auto;
-            z-index: 1000;
+            z-index: 2000;
         }
 
     .gen_select {
