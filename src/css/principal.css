@@ -545,7 +545,7 @@ a {
 
     .modal-content,
     .pokemon_model {
-        width: 90%;
+        width: 50%;
     }
 
     .gen_select {
@@ -561,7 +561,6 @@ a {
 
     .gen_select button {
         pointer-events: auto;
-        display: none !important;
     }
 
     .pokemon_list {
