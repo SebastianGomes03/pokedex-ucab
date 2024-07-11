@@ -14,6 +14,12 @@ const items = [];
 // Lista de tarjetas extendidas de objetos en la página.
 const items_extended = []
 
+// Variable que indique que este cargando 
+let loading = document.getElementById("loading");
+
+// Lista de elementos que no existen en la API
+let inexistent_items = [];
+
 // inicio y fin de la lista de objetos
 const list_starts_ends = [
   [1, 241],
@@ -82,17 +88,16 @@ function saveItemData(item) {
 // Función para obtener datos de objetos desde una API y almacenar/recuperar estos datos usando IndexedDB
 async function getItemData(firstItem, lastItem) {
   const itemData = [];
+  loading.style.display = "block";
   for (let i = firstItem; i <= lastItem; i++) {
     try {
         // Intenta obtener los datos del objeto de IndexedDB.
         const dataFromDB = await getItemFromIndexedDB(i);
-        if (dataFromDB && 
-          dataFromDB.sprites && 
-          dataFromDB.name) {
+        if (dataFromDB) {
           // Si los datos están en IndexedDB, los agrega a la lista de datos de objetos.
           itemData.push(dataFromDB);
           console.log("Se agrego el objeto " + i);
-        } else {
+        } else if(!inexistent_items.includes(i)) {
           // Si los datos no están en IndexedDB, realiza una solicitud a la API.
           const finalUrl = `${itemUrl}${i}`;
           const data = await fetch(finalUrl).then((response) => response.json());
@@ -101,15 +106,15 @@ async function getItemData(firstItem, lastItem) {
           // Almacena los datos obtenidos en IndexedDB para uso futuro.
           await saveItemData(data);
         }
-
-      
     } catch (error) {
       // Muestra un mensaje de error en la consola si ocurre un error durante el proceso.
       console.error("Failed to fetch or store item data:", error);
+      inexistent_items.push(i);
     }
   }
   // Genera una tarjeta de objeto para cada objeto en la lista de datos de objetos.
   itemData.forEach((item) => generateItemCard(item));
+  loading.style.display = "none";
 }
 
 // Función de ayuda para obtener datos de IndexedDB
@@ -138,13 +143,14 @@ function generateItemCard(data) {
   const id = data.id; // ID del objeto.
   const name = data.name; // Nombre del objeto.
   const sprite = data.sprites.default; // URL de la imagen del objeto.
-  const cost = data.cost; // Costo del objeto.
-  const effect = data.effect_entries[0].effect; // Efecto del objeto.
+  // const cost = data.cost; // Costo del objeto.
+  // const effect = data.effect_entries[0].effect; // Efecto del objeto.
 
   const li = document.createElement("li"); // Crea un nuevo elemento 'li'.
 
   // Define el contenido interno del elemento 'li', incluyendo la imagen del objeto, el nombre, el costo y el efecto del objeto.
-  li.innerHTML = `
+  if (name && sprite){
+    li.innerHTML = `
         <div class="item">
             <p>${id}</p>
             <div class="item_sprite">
@@ -153,6 +159,7 @@ function generateItemCard(data) {
             <p class="item_name">${name}</p>
         </div>
     `;
+  }
 
   itemList.appendChild(li); // Añade el elemento 'li' a la lista de objetos en el DOM.
 }
@@ -169,10 +176,12 @@ function loadItems(firstItem, lastItem) {
 
 function generarBotones() {
   const botones = document.getElementById("buttons");
+  let i = 0
   list_starts_ends.forEach(e => {
+    i++;
     const button = document.createElement("button");
     button.className = "button";
-    button.innerHTML = `Items ${e[0]} - ${e[1]}`;
+    button.innerHTML = `Lote ${i}`;
     button.addEventListener("click", () => loadItems(e[0], e[1]));
     botones.appendChild(button);
     console.log(e);

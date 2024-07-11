@@ -65,6 +65,15 @@ li {
     list-style: none;
 }
 
+#loading {
+    display: none;
+    font-weight: bold;
+}
+
+.objetos {
+    margin-left: 2rem;
+}
+
 #item-list {
     min-width: 400px;
     
@@ -109,10 +118,13 @@ li {
 
 #buttons {
     display: flex;
+    margin-left: 2rem;
 }
 
 .button {
     width: fit-content;
+    padding: 5px;
+    cursor: pointer;
 }
 
 a {
