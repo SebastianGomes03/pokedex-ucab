@@ -63,10 +63,6 @@
     font-family: 'Kanit', sans-serif;
 }
 
-html::-webkit-scrollbar {
-    display: none;
-}
-
 :root {
     --rosa: #FF808B;
     --rosaOscuro: #FE6673;
@@ -302,8 +298,8 @@ a {
 
 .shiny_button {
     position: absolute;
-    left: 80px;
-    top: 150px;
+    left: 350px;
+    top: 10px;
     width: 5rem;
     filter: drop-shadow(5px 5px 0 rgba(130, 217, 211, 0.408));
     cursor: pointer;
@@ -502,53 +498,92 @@ a {
 }
 
 .pokemon_info_box p {
-    margin-bottom: 10px;
     font-weight: bolder;
 }
 
-@media screen and (max-width: 600px) {
-    .gen_select {
-        flex-wrap: wrap-reverse;
-        height: 255px;
-    }
-
-    .gen_select {
-        opacity: 0.5;
-        transition: all 0.3s;
-    }
-
-    .gen_select:hover {
-        opacity: 1;
-    }
+.pokemon_info_box {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    font-weight: 500;
+    text-transform: capitalize;
 }
 
-@media screen and (max-width: 490px) {
-    div:has(.pokemon_3Dmodel) {
-        max-width: 300px;
+
+/* Estilos base ya proporcionados, no se repiten aquí */
+
+/* Media Query para pantallas pequeñas (menos de 600px) */
+@media (max-width: 600px) {
+
+    .modal-content,
+    .pokemon_model {
+        width: 90%;
+        /* Aumentar el ancho para pantallas pequeñas */
     }
 
-    .pokemon_3Dmodel {
-        margin-top: 70px;
+    .gen_select {
+        left: 10px;
+        /* Ajustar la posición para pantallas pequeñas */
+        flex-direction: column;
+        /* Apilar verticalmente */
     }
 
-    .pokedex {
-        justify-content: space-between;
-    }
-}
-
-@media screen and (max-width: 400px) {
     .pokemon_list {
-        width: 100%;
-        min-width: initial;
+        min-width: 300px;
+        /* Ajustar el ancho mínimo */
     }
 
-    .pokeball {
-        display: none;
+    body,
+    .close {
+        font-size: 14px;
+        /* Ajustar el tamaño de la fuente */
     }
 }
 
+/* Media Query para pantallas medianas (entre 600px y 900px) */
+@media (min-width: 601px) and (max-width: 900px) {
 
-.modal-content .pokemon-info {}
+    .modal-content,
+    .pokemon_model {
+        width: 80%;
+        /* Ajustar el ancho para pantallas medianas */
+    }
+
+    .gen_select {
+        left: 50px;
+        /* Ajustar la posición para pantallas medianas */
+    }
+
+    body,
+    .close {
+        font-size: 16px;
+        /* Ajustar el tamaño de la fuente */
+    }
+}
+
+/* Media Query para pantallas grandes (más de 900px) */
+@media (min-width: 901px) {
+
+    .modal-content,
+    .pokemon_model {
+        width: 60%;
+        /* Mantener el ancho para pantallas grandes */
+    }
+
+    body,
+    .close {
+        font-size: 18px;
+        /* Ajustar el tamaño de la fuente para legibilidad */
+    }
+}
+
+/* Ajustes generales para responsividad */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
 
 /* Add the following code to the existing CSS file */
 

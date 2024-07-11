@@ -617,7 +617,7 @@ function updateShinyButtonImage(isShiny) {
   // Selecciona el elemento de imagen dentro del botón shiny.
   const shinyButtonImage = document.querySelector(".shiny_button > img");
   // Actualiza el src de la imagen basado en el estado shiny.
-  shinyButtonImage.src = isShiny ? ".img/shiny-stars-active.png" : "..img/shiny-stars.png";
+  shinyButtonImage.src = isShiny ? "./img/shiny-stars-active.png" : "./img/shiny-stars.png";
 }
 
 // Actualiza el sprite del Pokémon basado en si es shiny o no.
