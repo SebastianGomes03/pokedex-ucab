@@ -551,17 +551,17 @@ a {
         .pokemon_info_button {
             pointer-events: auto;
             z-index: 1001;
-            position: relative;
         }
 
     .gen_select {
-          display: grid;
+        display: grid;
         grid-template-columns: repeat(2, 50px); /* Crea dos columnas */
         gap: 50px 10px;
         left: 10px;
         top: 50px;
         margin-bottom: 20px;
         padding: 10px;
+        z-index: 1000;
     }
 
     .gen_select button {
