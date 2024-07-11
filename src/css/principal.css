@@ -553,31 +553,36 @@ a {
             z-index: 1000;
         }
 
-.gen_select {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    position: absolute;
-    top: 50px;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
-    padding: 10px;
-    z-index: 1000;
-    justify-content: center;
-    /* Asegura que el contenido esté centrado */
-}
-
+    .gen_select {
+        display: flex;
+            position: absolute;
+            /* Cambiado a absolute para posicionar en la parte superior */
+            top: 50px;
+            /* Alinea al top de la pantalla */
+            left: 0;
+            /* Alinea al lado izquierdo de la pantalla */
+            right: 0;
+            /* Alinea al lado derecho de la pantalla para centrar */
+            z-index: 1000;
+        }
+        
     .modal-content{
-        z-index: 1000;
+        z-index: 2000;
     }
 
-        .gen_select button {
-            pointer-events: auto;
-            flex: 1 1 calc(50% - 10px);
-        }
+                .gen_select button {
+                    pointer-events: auto;
+                    width: 18%;
+                    /* Reducido para hacer los botones más pequeños */
+                    height: 30px;
+                    /* Altura ajustada para los botones */
+                    padding: 5px 10px;
+                    /* Ajusta el padding para mantener el contenido legible */
+                    font-size: 0.8rem;
+                    /* Ajusta el tamaño de fuente para que se ajuste al botón más pequeño */
+                    margin: 2px;
+                    /* Añade un pequeño margen entre botones */
+                }
 
     .pokemon_list {
         min-width: 300px;
