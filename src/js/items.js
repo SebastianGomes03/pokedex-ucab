@@ -28,7 +28,7 @@ const list_starts_ends = [
   [1, 241],
   [242, 482],
   [483, 723],
-  [724, 964]
+  [724, 918]
 ]
 
 // Maneja el evento necesario para actualizar la base de datos IndexedDB cuando se necesita una actualización.
