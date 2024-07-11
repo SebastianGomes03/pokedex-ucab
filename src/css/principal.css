@@ -546,7 +546,7 @@ a {
     .modal-content,
     .pokemon_model {
         width: 90%;
-        /* Aumentar el ancho para pantallas pequeñas */
+        left: 0;
     }
 
     .gen_select {
