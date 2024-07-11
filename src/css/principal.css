@@ -549,17 +549,14 @@ a {
     }
 
     .gen_select {
-        display: grid;
-            grid-template-columns: repeat(2, 50px);
-            /* Crea dos columnas */
-            gap: 50px 10px;
-            left: 10px;
-            top: 50px;
-            margin-bottom: 20px;
-            padding: 10px;
-            position: relative;
-            /* Asegura que z-index funcione correctamente */
-            z-index: 1000;
+          display: grid;
+        grid-template-columns: repeat(2, 50px); /* Crea dos columnas */
+        gap: 50px 10px;
+        left: 10px;
+        top: 50px;
+        margin-bottom: 20px;
+        padding: 10px;
+        z-index: 1000;
     }
 
                 .gen_select button {
